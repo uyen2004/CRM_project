@@ -1,0 +1,102 @@
+package vamk.uyen.crm.entity;
+
+import java.util.HashSet;
+import java.util.Set; 
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Table;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn; 
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+
+@Entity
+@Table(name = "users")
+public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id; 
+    
+    public User() {
+    	
+    }
+    
+    public User(String email, String password, String fullname, Role role) {
+        super();
+        this.email = email;
+        this.password = password;
+        this.fullname = fullname;
+        this.role = role;
+    }
+
+
+
+	@Column(length = 128, nullable = false, unique = true)
+    private String email;
+
+    @Column(length = 64, nullable = false, unique = true)
+    private String password;
+
+    @Column(length = 100, nullable = false)
+    private String fullname;
+
+    @Column(length = 100)
+    private String avatar;
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getFullname() {
+		return fullname;
+	}
+
+	public void setFullname(String fullname) {
+		this.fullname = fullname;
+	}
+
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+	
+	 @ManyToOne
+	    @JoinColumn(name="role_id", nullable = false)
+	    private Role role;
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+}

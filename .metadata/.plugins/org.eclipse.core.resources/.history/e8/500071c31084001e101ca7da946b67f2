@@ -1,0 +1,45 @@
+package vamk.uyen.crm.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import jakarta.transaction.Transactional;
+import vamk.uyen.crm.entity.Role;
+import vamk.uyen.crm.entity.User;
+import vamk.uyen.crm.repository.RoleRepository;
+import vamk.uyen.crm.repository.UserRepository;
+
+@Service
+@Transactional
+public class UserService {
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private RoleRepository roleRepository; 
+
+    public Iterable<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    public User getUserById(Integer userId) {
+        return userRepository.findById(userId).orElse(null);
+    }
+
+    public User saveUser(User user) {
+        Role role = roleRepository.findById(user.getRole().getId()).orElse(null);
+
+        if (role != null) {
+            user.setRole(role);
+            return userRepository.save(user);
+        } else {
+            throw new RuntimeException("Role not found with ID: " + user.getRole().getId());
+        }
+    }
+
+
+    public void deleteUser(Integer userId) {
+        userRepository.deleteById(userId);
+    }
+}

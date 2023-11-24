@@ -1,0 +1,5 @@
+package vamk.uyen.crm.service.DTO;
+
+public class UserDTO {
+
+}

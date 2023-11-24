@@ -1,0 +1,5 @@
+package vamk.uyen.crm.repository;
+
+public interface ProjectRepository {
+
+}
