@@ -1,4 +1,4 @@
-package vamk.uyen.crm.service.DTO;
+package vamk.uyen.crm.dto;
 
 
 public class UserDTO {

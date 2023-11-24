@@ -1362,8 +1362,8 @@
   <commands xmi:id="_uajHtA86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.window.resetPerspective" commandName="Reset Perspective" description="Reset the current perspective to its default state" category="_uadBFA86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uajHtQ86Ee6I8MBIDxkhZQ" elementId="org.eclipse.mylyn.wikitext.ui.quickOutlineCommand" commandName="Quick Outline" description="Open a popup dialog with a quick outline of the current document" category="_uacaCg86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uajHtg86Ee6I8MBIDxkhZQ" elementId="AnsiConsole.command.enable_disable" commandName="Enable / Disable ANSI Support" description="Enable / disable ANSI Support" category="_uacaCw86Ee6I8MBIDxkhZQ"/>
-  <commands xmi:id="_uajHtw86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.project.buildLast" commandName="Repeat Working Set Build" description="Repeat the last working set build" category="_uadBGA86Ee6I8MBIDxkhZQ"/>
-  <commands xmi:id="_uajHuA86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.project.buildProject" commandName="Build Project" description="Build the selected project" category="_uadBGA86Ee6I8MBIDxkhZQ"/>
+  <commands xmi:id="_uajHtw86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.projectEntity.buildLast" commandName="Repeat Working Set Build" description="Repeat the last working set build" category="_uadBGA86Ee6I8MBIDxkhZQ"/>
+  <commands xmi:id="_uajHuA86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.projectEntity.buildProject" commandName="Build Project" description="Build the selected projectEntity" category="_uadBGA86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uajHuQ86Ee6I8MBIDxkhZQ" elementId="org.eclipse.compare.switchLeftAndRight" commandName="Swap Left and Right View" description="Switch the left and right sides in the compare editor" category="_uadBEg86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uajHug86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.edit.text.goto.textStart" commandName="Text Start" description="Go to the beginning of the text" category="_uacaCQ86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uajHuw86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.edit.paste" commandName="Paste" description="Paste from the clipboard" category="_uacaBA86Ee6I8MBIDxkhZQ"/>
@@ -1372,7 +1372,7 @@
   <commands xmi:id="_uajuwg86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.navigate.previous" commandName="Previous" description="Navigate to the previous item" category="_uacaCg86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uajuww86Ee6I8MBIDxkhZQ" elementId="org.eclipse.egit.ui.team.clean" commandName="Clean..." category="_uadoJA86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uajuxA86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.edit.rename" commandName="Rename" description="Rename the selected item" category="_uadBEA86Ee6I8MBIDxkhZQ"/>
-  <commands xmi:id="_uajuxQ86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.project.buildAll" commandName="Build All" description="Build all projects" category="_uadBGA86Ee6I8MBIDxkhZQ"/>
+  <commands xmi:id="_uajuxQ86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.projectEntity.buildAll" commandName="Build All" description="Build all projects" category="_uadBGA86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uajuxg86Ee6I8MBIDxkhZQ" elementId="org.eclipse.egit.ui.history.OpenInTextEditorCommand" commandName="Open in Text Editor" category="_uadoKg86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uajuxw86Ee6I8MBIDxkhZQ" elementId="org.eclipse.jdt.debug.ui.commands.ToggleLambdaEntryBreakpoint" commandName="Toggle &amp;Lambda Entry Breakpoint" description="Creates or removes a lambda entry breakpoint  " category="_uadoIg86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uajuyA86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.edit.text.cut.line.to.beginning" commandName="Cut to Beginning of Line" description="Cut to the beginning of a line of text" category="_uacaCQ86Ee6I8MBIDxkhZQ"/>
@@ -1426,7 +1426,7 @@
   <commands xmi:id="_ualj8w86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.edit.findReplace" commandName="Find and Replace" description="Find and replace text" category="_uacaBA86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_ualj9A86Ee6I8MBIDxkhZQ" elementId="org.eclipse.egit.ui.team.MergeTool" commandName="Merge Tool" category="_uadoJA86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_ualj9Q86Ee6I8MBIDxkhZQ" elementId="org.eclipse.pde.ui.addAllPluginsToJavaSearch" commandName="Add All Plug-ins to Java Workspace Scope" description="Adds all plug-ins in the target platform to Java workspace scope" category="_uadoKg86Ee6I8MBIDxkhZQ"/>
-  <commands xmi:id="_ualj9g86Ee6I8MBIDxkhZQ" elementId="org.eclipse.egit.ui.command.shareProject" commandName="Share with Git" description="Share the project using Git" category="_uadoKg86Ee6I8MBIDxkhZQ">
+  <commands xmi:id="_ualj9g86Ee6I8MBIDxkhZQ" elementId="org.eclipse.egit.ui.command.shareProject" commandName="Share with Git" description="Share the projectEntity using Git" category="_uadoKg86Ee6I8MBIDxkhZQ">
     <parameters xmi:id="_ualj9w86Ee6I8MBIDxkhZQ" elementId="org.eclipse.egit.ui.command.projectNameParameter" name="Project" optional="false"/>
   </commands>
   <commands xmi:id="_ualj-A86Ee6I8MBIDxkhZQ" elementId="org.eclipse.jdt.ui.edit.text.java.convert.anonymous.to.nested" commandName="Convert Anonymous Class to Nested" description="Convert an anonymous class to a nested class" category="_uadBFQ86Ee6I8MBIDxkhZQ"/>
@@ -1460,7 +1460,7 @@
   <commands xmi:id="_uamLDA86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.edit.text.gotoNextEditPosition" commandName="Next Edit Location" description="Next edit location" category="_uacaCg86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uamLDQ86Ee6I8MBIDxkhZQ" elementId="org.eclipse.lsp4e.symbolinworkspace" commandName="Go to Symbol in Workspace" category="_uacaDQ86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uamLDg86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.file.revert" commandName="Revert" description="Revert to the last saved state" category="_uadBEA86Ee6I8MBIDxkhZQ"/>
-  <commands xmi:id="_uamLDw86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.project.buildAutomatically" commandName="Build Automatically" description="Toggle the workspace build automatically function" category="_uadBGA86Ee6I8MBIDxkhZQ"/>
+  <commands xmi:id="_uamLDw86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.projectEntity.buildAutomatically" commandName="Build Automatically" description="Toggle the workspace build automatically function" category="_uadBGA86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uamLEA86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.file.import" commandName="Import" description="Import" category="_uadBEA86Ee6I8MBIDxkhZQ">
     <parameters xmi:id="_uamLEQ86Ee6I8MBIDxkhZQ" elementId="importWizardId" name="Import Wizard"/>
   </commands>
@@ -1474,7 +1474,7 @@
   <commands xmi:id="_uamyFg86Ee6I8MBIDxkhZQ" elementId="org.eclipse.egit.ui.RepositoriesViewDelete" commandName="Delete Repository" category="_uadoJA86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uamyFw86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.file.closePart" commandName="Close Part" description="Close the active workbench part" category="_uadBFA86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uamyGA86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.editors.revisions.id.toggle" commandName="Toggle Revision Id Display" description="Toggles the display of the revision id" category="_uacaCQ86Ee6I8MBIDxkhZQ"/>
-  <commands xmi:id="_uamyGQ86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.project.cleanAction" commandName="Build Clean" description="Discard old built state" category="_uadBGA86Ee6I8MBIDxkhZQ"/>
+  <commands xmi:id="_uamyGQ86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.projectEntity.cleanAction" commandName="Build Clean" description="Discard old built state" category="_uadBGA86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uamyGg86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.edit.text.select.multiCaretDown" commandName="Multi caret down" description="Add a new caret/multi selection below the current line, or remove the first caret/multi selection " category="_uacaCQ86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uamyGw86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.navigate.back" commandName="Back" description="Navigate back" category="_uacaCg86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uamyHA86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.edit.text.select.wordNext" commandName="Select Next Word" description="Select the next word" category="_uacaCQ86Ee6I8MBIDxkhZQ"/>
@@ -1566,7 +1566,7 @@
   <commands xmi:id="_uapOUg86Ee6I8MBIDxkhZQ" elementId="org.springframework.tooling.ls.eclipse.gotosymbol.command" commandName="Goto Symbol" category="_uacaAg86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uapOUw86Ee6I8MBIDxkhZQ" elementId="org.eclipse.jdt.ui.edit.text.java.search.write.access.in.workspace" commandName="Write Access in Workspace" description="Search for write references to the selected element in the workspace" category="_uadoIQ86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uapOVA86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.navigate.removeFromWorkingSet" commandName="Remove From Working Set" description="Removes the selected object from a working set." category="_uacaBA86Ee6I8MBIDxkhZQ"/>
-  <commands xmi:id="_uapOVQ86Ee6I8MBIDxkhZQ" elementId="org.eclipse.pde.ui.createAntBuildFile" commandName="Create Ant Build File" description="Creates an Ant build file for the current project" category="_uadoKg86Ee6I8MBIDxkhZQ"/>
+  <commands xmi:id="_uapOVQ86Ee6I8MBIDxkhZQ" elementId="org.eclipse.pde.ui.createAntBuildFile" commandName="Create Ant Build File" description="Creates an Ant build file for the current projectEntity" category="_uadoKg86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uapOVg86Ee6I8MBIDxkhZQ" elementId="org.eclipse.egit.ui.RepositoriesLinkWithSelection" commandName="Toggle &quot;Link with Editor and Selection&quot; (Git Repositories View)" category="_uadoJA86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uapOVw86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.ide.deleteCompleted" commandName="Delete Completed Tasks" description="Delete the tasks marked as completed" category="_uadoKg86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uapOWA86Ee6I8MBIDxkhZQ" elementId="org.eclipse.wst.validation.ValidationCommand" commandName="Validate" description="Invoke registered Validators" category="_uadoKg86Ee6I8MBIDxkhZQ"/>
@@ -1603,14 +1603,14 @@
   <commands xmi:id="_uap1ag86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.file.export" commandName="Export" description="Export" category="_uadBEA86Ee6I8MBIDxkhZQ">
     <parameters xmi:id="_uap1aw86Ee6I8MBIDxkhZQ" elementId="exportWizardId" name="Export Wizard"/>
   </commands>
-  <commands xmi:id="_uap1bA86Ee6I8MBIDxkhZQ" elementId="org.eclipse.jdt.ui.edit.text.java.search.implementors.in.project" commandName="Implementors in Project" description="Search for implementors of the selected interface in the enclosing project" category="_uadoIQ86Ee6I8MBIDxkhZQ"/>
+  <commands xmi:id="_uap1bA86Ee6I8MBIDxkhZQ" elementId="org.eclipse.jdt.ui.edit.text.java.search.implementors.in.projectEntity" commandName="Implementors in Project" description="Search for implementors of the selected interface in the enclosing projectEntity" category="_uadoIQ86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uap1bQ86Ee6I8MBIDxkhZQ" elementId="org.eclipse.egit.ui.team.ApplyPatch" commandName="Apply Patch" category="_uadoJA86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uap1bg86Ee6I8MBIDxkhZQ" elementId="org.eclipse.jdt.ui.JavaPerspective" commandName="Java" description="Show the Java perspective" category="_uadoJQ86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uap1bw86Ee6I8MBIDxkhZQ" elementId="org.eclipse.jdt.ui.edit.text.java.indent" commandName="Correct Indentation" description="Corrects the indentation of the selected lines" category="_uadoJw86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uap1cA86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.ide.copyConfigCommand" commandName="Copy Configuration Data To Clipboard" description="Copies the configuration data (system properties, installed bundles, etc) to the clipboard." category="_uacaBA86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uap1cQ86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.navigate.forwardHistory" commandName="Forward History" description="Move forward in the editor navigation history" category="_uacaCg86Ee6I8MBIDxkhZQ"/>
-  <commands xmi:id="_uap1cg86Ee6I8MBIDxkhZQ" elementId="org.eclipse.search.ui.performTextSearchProject" commandName="Find Text in Project" description="Searches the files in the project for specific text." category="_uadoIQ86Ee6I8MBIDxkhZQ"/>
-  <commands xmi:id="_uap1cw86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.project.rebuildAll" commandName="Rebuild All" description="Rebuild all projects" category="_uadBGA86Ee6I8MBIDxkhZQ"/>
+  <commands xmi:id="_uap1cg86Ee6I8MBIDxkhZQ" elementId="org.eclipse.search.ui.performTextSearchProject" commandName="Find Text in Project" description="Searches the files in the projectEntity for specific text." category="_uadoIQ86Ee6I8MBIDxkhZQ"/>
+  <commands xmi:id="_uap1cw86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.projectEntity.rebuildAll" commandName="Rebuild All" description="Rebuild all projects" category="_uadBGA86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uap1dA86Ee6I8MBIDxkhZQ" elementId="org.eclipse.jdt.ui.edit.text.java.surround.with.try.with.resources" commandName="Surround with try-with-resources Block" description="Surround the selected text with a try-with-resources block" category="_uadoJw86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uap1dQ86Ee6I8MBIDxkhZQ" elementId="org.eclipse.jdt.ui.edit.text.java.quick.format" commandName="Format Element" description="Format enclosing text element" category="_uadoJw86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uap1dg86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.edit.text.openLocalFile" commandName="Open File..." description="Open a file" category="_uadBEA86Ee6I8MBIDxkhZQ"/>
@@ -1642,9 +1642,9 @@
   <commands xmi:id="_uarDgw86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.edit.text.zoomOut" commandName="Zoom Out" description="Zoom out text, decrease default font size for text editors" category="_uacaCQ86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uarDhA86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.file.save" commandName="Save" description="Save the current contents" category="_uadBEA86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uarDhQ86Ee6I8MBIDxkhZQ" elementId="org.eclipse.jdt.ui.correction.assignAllParamsToNewFields.assist" commandName="Quick Assist - Assign all parameters to new fields" description="Invokes quick assist and selects 'Assign all parameters to new fields'" category="_uadoJw86Ee6I8MBIDxkhZQ"/>
-  <commands xmi:id="_uarDhg86Ee6I8MBIDxkhZQ" elementId="org.eclipse.jdt.ui.edit.text.java.search.references.in.project" commandName="References in Project" description="Search for references to the selected element in the enclosing project" category="_uadoIQ86Ee6I8MBIDxkhZQ"/>
+  <commands xmi:id="_uarDhg86Ee6I8MBIDxkhZQ" elementId="org.eclipse.jdt.ui.edit.text.java.search.references.in.projectEntity" commandName="References in Project" description="Search for references to the selected element in the enclosing projectEntity" category="_uadoIQ86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uarDhw86Ee6I8MBIDxkhZQ" elementId="org.eclipse.team.ui.applyPatch" commandName="Apply Patch..." description="Apply a patch to one or more workspace projects." category="_uacaAA86Ee6I8MBIDxkhZQ"/>
-  <commands xmi:id="_uarDiA86Ee6I8MBIDxkhZQ" elementId="org.eclipse.buildship.ui.commands.rundefaulttasks" commandName="Run Gradle Default Tasks" description="Runs the default tasks of the selected Gradle project" category="_uadoIg86Ee6I8MBIDxkhZQ"/>
+  <commands xmi:id="_uarDiA86Ee6I8MBIDxkhZQ" elementId="org.eclipse.buildship.ui.commands.rundefaulttasks" commandName="Run Gradle Default Tasks" description="Runs the default tasks of the selected Gradle projectEntity" category="_uadoIg86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uarDiQ86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.edit.text.select.lineEnd" commandName="Select Line End" description="Select to the end of the line of text" category="_uacaCQ86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uarDig86Ee6I8MBIDxkhZQ" elementId="org.eclipse.jdt.ui.edit.text.java.move.element" commandName="Move - Refactoring " description="Move the selected element to a new location" category="_uadBFQ86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uarDiw86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.edit.text.select.wordPrevious" commandName="Select Previous Word" description="Select the previous word" category="_uacaCQ86Ee6I8MBIDxkhZQ"/>
@@ -1658,7 +1658,7 @@
   <commands xmi:id="_uarDkg86Ee6I8MBIDxkhZQ" elementId="org.eclipse.egit.ui.RepositoriesViewOpen" commandName="Open" category="_uadoJA86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uarDkw86Ee6I8MBIDxkhZQ" elementId="org.eclipse.egit.ui.team.ShowHistory" commandName="Show in History" category="_uadoJA86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uarDlA86Ee6I8MBIDxkhZQ" elementId="org.eclipse.jdt.ui.edit.text.java.toggle.codemining" commandName="Toggle Code Mining" description="Toggle Code Mining Annotations" category="_uadoIQ86Ee6I8MBIDxkhZQ"/>
-  <commands xmi:id="_uarDlQ86Ee6I8MBIDxkhZQ" elementId="org.eclipse.m2e.core.ui.command.updateProject" commandName="Update Project" description="Update Maven project configuration and dependencies" category="_uadBFA86Ee6I8MBIDxkhZQ"/>
+  <commands xmi:id="_uarDlQ86Ee6I8MBIDxkhZQ" elementId="org.eclipse.m2e.core.ui.command.updateProject" commandName="Update Project" description="Update Maven projectEntity configuration and dependencies" category="_uadBFA86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uarDlg86Ee6I8MBIDxkhZQ" elementId="org.eclipse.tools.layout.spy.commands.layoutSpyCommand" commandName="Layout Spy" description="Show the Layout Spy" category="_uadoKA86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uarDlw86Ee6I8MBIDxkhZQ" elementId="org.eclipse.egit.ui.team.SimplePush" commandName="Push to Upstream" category="_uadoJA86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uarDmA86Ee6I8MBIDxkhZQ" elementId="org.eclipse.debug.ui.commands.addMemoryMonitor" commandName="Add Memory Block" description="Add memory block" category="_uadoIg86Ee6I8MBIDxkhZQ"/>
@@ -1669,7 +1669,7 @@
   <commands xmi:id="_uarDnQ86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.edit.selectAll" commandName="Select All" description="Select all" category="_uacaBA86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uarDng86Ee6I8MBIDxkhZQ" elementId="org.eclipse.jdt.ui.edit.text.java.show.outline" commandName="Quick Outline" description="Show the quick outline for the editor input" category="_uacaCg86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uarDnw86Ee6I8MBIDxkhZQ" elementId="org.eclipse.jdt.ui.edit.text.java.goto.next.member" commandName="Go to Next Member" description="Move the caret to the next member of the compilation unit" category="_uacaCg86Ee6I8MBIDxkhZQ"/>
-  <commands xmi:id="_uarDoA86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.project.rebuildProject" commandName="Rebuild Project" description="Rebuild the selected projects" category="_uadBGA86Ee6I8MBIDxkhZQ"/>
+  <commands xmi:id="_uarDoA86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.projectEntity.rebuildProject" commandName="Rebuild Project" description="Rebuild the selected projects" category="_uadBGA86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uarDoQ86Ee6I8MBIDxkhZQ" elementId="org.eclipse.m2e.core.pomFileAction.run" commandName="Run Maven Build" description="Run Maven Build" category="_uadoIg86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uarDog86Ee6I8MBIDxkhZQ" elementId="org.eclipse.egit.gitflow.ui.command.init" commandName="Init Gitflow..." category="_uadoJA86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uarqkA86Ee6I8MBIDxkhZQ" elementId="org.eclipse.egit.gitflow.ui.command.releaseStart" commandName="Start Release" category="_uadoJA86Ee6I8MBIDxkhZQ"/>
@@ -1704,7 +1704,7 @@
   <commands xmi:id="_uarqqw86Ee6I8MBIDxkhZQ" elementId="org.eclipse.m2e.core.ui.command.addDependency" commandName="Add Maven Dependency" description="Add Maven dependency" category="_uacaBA86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uarqrA86Ee6I8MBIDxkhZQ" elementId="org.eclipse.jdt.debug.ui.commands.Execute" commandName="Execute" description="Evaluate selected text" category="_uadoIg86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uarqrQ86Ee6I8MBIDxkhZQ" elementId="org.eclipse.jdt.ui.edit.text.java.add.block.comment" commandName="Add Block Comment" description="Enclose the selection with a block comment" category="_uadoJw86Ee6I8MBIDxkhZQ"/>
-  <commands xmi:id="_uarqrg86Ee6I8MBIDxkhZQ" elementId="org.eclipse.jdt.ui.edit.text.java.search.read.access.in.project" commandName="Read Access in Project" description="Search for read references to the selected element in the enclosing project" category="_uadoIQ86Ee6I8MBIDxkhZQ"/>
+  <commands xmi:id="_uarqrg86Ee6I8MBIDxkhZQ" elementId="org.eclipse.jdt.ui.edit.text.java.search.read.access.in.projectEntity" commandName="Read Access in Project" description="Search for read references to the selected element in the enclosing projectEntity" category="_uadoIQ86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uarqrw86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.file.closeAllSaved" commandName="Close All Saved" description="Close all saved editors" category="_uadBEA86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uasRoA86Ee6I8MBIDxkhZQ" elementId="org.eclipse.wst.server.launchShortcut.run" commandName="Run on Server" description="Run the current selection on a server" category="_uadoIg86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uasRoQ86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.edit.redo" commandName="Redo" description="Redo the last operation" category="_uacaBA86Ee6I8MBIDxkhZQ"/>
@@ -1713,7 +1713,7 @@
   <commands xmi:id="_uasRpA86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.navigate.selectWorkingSets" commandName="Select Working Sets" description="Select the working sets that are applicable for this window." category="_uadBFA86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uasRpQ86Ee6I8MBIDxkhZQ" elementId="org.eclipse.linuxtools.docker.ui.commands.displayContainerLog" commandName="Display Log" description="Display the log for the selected container in the Console" category="_uadoKg86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uasRpg86Ee6I8MBIDxkhZQ" elementId="org.eclipse.jdt.ui.edit.text.java.rename.element" commandName="Rename - Refactoring " description="Rename the selected element" category="_uadBFQ86Ee6I8MBIDxkhZQ"/>
-  <commands xmi:id="_uasRpw86Ee6I8MBIDxkhZQ" elementId="org.eclipse.pde.api.tools.ui.remove.filters" commandName="Remove &amp;API Problem Filters..." description="Remove API problem filters for this project" category="_uadoKg86Ee6I8MBIDxkhZQ"/>
+  <commands xmi:id="_uasRpw86Ee6I8MBIDxkhZQ" elementId="org.eclipse.pde.api.tools.ui.remove.filters" commandName="Remove &amp;API Problem Filters..." description="Remove API problem filters for this projectEntity" category="_uadoKg86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uasRqA86Ee6I8MBIDxkhZQ" elementId="org.eclipse.tm.terminal.view.ui.command.newview" commandName="New Terminal View" category="_uadBEQ86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uasRqQ86Ee6I8MBIDxkhZQ" elementId="org.eclipse.jdt.ui.edit.text.java.externalize.strings" commandName="Externalize Strings" description="Finds all strings that are not externalized and moves them into a separate property file" category="_uadoJw86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uasRqg86Ee6I8MBIDxkhZQ" elementId="org.eclipse.lsp4e.showkindinoutline" commandName="Show Kind in Outline" category="_uacaDQ86Ee6I8MBIDxkhZQ"/>
@@ -1742,7 +1742,7 @@
   <commands xmi:id="_uasRvg86Ee6I8MBIDxkhZQ" elementId="org.eclipse.jdt.ui.edit.text.java.add.unimplemented.constructors" commandName="Generate Constructors from Superclass" description="Evaluate and add constructors from superclass" category="_uadoJw86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uasRvw86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.edit.text.select.windowStart" commandName="Select Window Start" description="Select to the start of the window" category="_uacaCQ86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uasRwA86Ee6I8MBIDxkhZQ" elementId="org.eclipse.jdt.ui.edit.text.java.source.quickMenu" commandName="Show Source Quick Menu" description="Shows the source quick menu" category="_uadoJw86Ee6I8MBIDxkhZQ"/>
-  <commands xmi:id="_uas4sA86Ee6I8MBIDxkhZQ" elementId="org.eclipse.jdt.ui.edit.text.java.search.declarations.in.project" commandName="Declaration in Project" description="Search for declarations of the selected element in the enclosing project" category="_uadoIQ86Ee6I8MBIDxkhZQ"/>
+  <commands xmi:id="_uas4sA86Ee6I8MBIDxkhZQ" elementId="org.eclipse.jdt.ui.edit.text.java.search.declarations.in.projectEntity" commandName="Declaration in Project" description="Search for declarations of the selected element in the enclosing projectEntity" category="_uadoIQ86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uas4sQ86Ee6I8MBIDxkhZQ" elementId="org.eclipse.egit.ui.RepositoriesViewImportProjects" commandName="Import Projects..." description="Import or create in local Git repository" category="_uadoJA86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uas4sg86Ee6I8MBIDxkhZQ" elementId="org.eclipse.linuxtools.docker.ui.commands.showAllContainers" commandName="&amp;Show all Containers" description="Show all Containers, including non-running ones." category="_uadoKg86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uas4sw86Ee6I8MBIDxkhZQ" elementId="org.eclipse.compare.copyAllLeftToRight" commandName="Copy All from Left to Right" description="Copy All Changes from Left to Right" category="_uadBEg86Ee6I8MBIDxkhZQ"/>
@@ -1771,7 +1771,7 @@
   <commands xmi:id="_uas4yQ86Ee6I8MBIDxkhZQ" elementId="org.eclipse.pde.ui.EquinoxLaunchShortcut.debug" commandName="Debug OSGi Framework" description="Debug OSGi Framework" category="_uadoIg86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uas4yg86Ee6I8MBIDxkhZQ" elementId="org.eclipse.lsp4e.symbolinfile" commandName="Go to Symbol in File" category="_uacaDQ86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uas4yw86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.edit.text.showChangeRulerInformation" commandName="Show Quick Diff Ruler Tooltip" description="Displays quick diff or revision information for the caret line in a focused hover" category="_uacaCQ86Ee6I8MBIDxkhZQ"/>
-  <commands xmi:id="_uas4zA86Ee6I8MBIDxkhZQ" elementId="org.springframework.tooling.boot.ls.rewrite.boot-upgrade" commandName="Upgrade Spring Boot Version..." description="Upgrade Spring Boot Version for a Spring Boot project" category="_uadBFw86Ee6I8MBIDxkhZQ"/>
+  <commands xmi:id="_uas4zA86Ee6I8MBIDxkhZQ" elementId="org.springframework.tooling.boot.ls.rewrite.boot-upgrade" commandName="Upgrade Spring Boot Version..." description="Upgrade Spring Boot Version for a Spring Boot projectEntity" category="_uadBFw86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uas4zQ86Ee6I8MBIDxkhZQ" elementId="org.eclipse.linuxtools.docker.ui.commands.removeTag" commandName="&amp;Remove Tag" description="Remove a tag from an Image with multiple tags" category="_uadoKg86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uas4zg86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.edit.text.upperCase" commandName="To Upper Case" description="Changes the selection to upper case" category="_uacaCQ86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uas4zw86Ee6I8MBIDxkhZQ" elementId="org.eclipse.egit.ui.team.ConfigureFetch" commandName="Configure Upstream Fetch" category="_uadoJA86Ee6I8MBIDxkhZQ"/>
@@ -1886,7 +1886,7 @@
   <commands xmi:id="_uaut6Q86Ee6I8MBIDxkhZQ" elementId="org.eclipse.jdt.ui.correction.changeToStatic" commandName="Quick Fix - Change to static access" description="Invokes quick assist and selects 'Change to static access'" category="_uadoJw86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uaut6g86Ee6I8MBIDxkhZQ" elementId="org.eclipse.debug.ui.commands.newRendering" commandName="New Rendering" description="Add a new rendering." category="_uadoIg86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uaut6w86Ee6I8MBIDxkhZQ" elementId="org.eclipse.linuxtools.docker.ui.commands.copyfromcontainer" commandName="Copy from Container" description="Copy files from running Container to a local directory" category="_uadoKg86Ee6I8MBIDxkhZQ"/>
-  <commands xmi:id="_uaut7A86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.project.closeUnrelatedProjects" commandName="Close Unrelated Projects" description="Close unrelated projects" category="_uadBGA86Ee6I8MBIDxkhZQ"/>
+  <commands xmi:id="_uaut7A86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.projectEntity.closeUnrelatedProjects" commandName="Close Unrelated Projects" description="Close unrelated projects" category="_uadBGA86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uaut7Q86Ee6I8MBIDxkhZQ" elementId="org.eclipse.jdt.ui.edit.text.java.self.encapsulate.field" commandName="Encapsulate Field" description="Create getting and setting methods for the field and use only those to access the field" category="_uadBFQ86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uaut7g86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.ide.markers.copyMarkerResourceQualifiedName" commandName="Copy Resource Qualified Name To Clipboard" description="Copies markers resource qualified name to the clipboard" category="_uacaBA86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uaut7w86Ee6I8MBIDxkhZQ" elementId="org.eclipse.pde.ui.runtimeWorkbenchShortcut.run" commandName="Run Eclipse Application" description="Run Eclipse Application" category="_uadoIg86Ee6I8MBIDxkhZQ"/>
@@ -1935,7 +1935,7 @@
   <commands xmi:id="_uavVCQ86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.edit.text.goto.textEnd" commandName="Text End" description="Go to the end of the text" category="_uacaCQ86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uavVCg86Ee6I8MBIDxkhZQ" elementId="org.eclipse.jdt.ui.edit.text.java.goto.matching.bracket" commandName="Go to Matching Bracket" description="Moves the cursor to the matching bracket" category="_uacaCg86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uavVCw86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.part.previousPage" commandName="Previous Page" description="Switch to the previous page" category="_uacaCg86Ee6I8MBIDxkhZQ"/>
-  <commands xmi:id="_uavVDA86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.project.closeProject" commandName="Close Project" description="Close the selected project" category="_uadBGA86Ee6I8MBIDxkhZQ"/>
+  <commands xmi:id="_uavVDA86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.projectEntity.closeProject" commandName="Close Project" description="Close the selected projectEntity" category="_uadBGA86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uavVDQ86Ee6I8MBIDxkhZQ" elementId="org.eclipse.egit.ui.team.PullWithOptions" commandName="Pull..." category="_uadoJA86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uavVDg86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.edit.text.select.addAllMatchesToMultiSelection" commandName="Add all matches to multi-selection" description="Looks for all regions matching the current selection or identifier and adds them to a multi-selection " category="_uacaCQ86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uavVDw86Ee6I8MBIDxkhZQ" elementId="org.eclipse.wst.server.publish" commandName="Publish" description="Publish to server" category="_uacaDA86Ee6I8MBIDxkhZQ"/>
@@ -1962,7 +1962,7 @@
   <commands xmi:id="_uav8Cg86Ee6I8MBIDxkhZQ" elementId="org.eclipse.jdt.debug.ui.localJavaShortcut.debug" commandName="Debug Java Application" description="Debug Java Application" category="_uadoIg86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uav8Cw86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.navigate.forward" commandName="Forward" description="Navigate forward" category="_uacaCg86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uav8DA86Ee6I8MBIDxkhZQ" elementId="org.eclipse.egit.ui.team.CherryPick" commandName="Cherry Pick" category="_uadoJA86Ee6I8MBIDxkhZQ"/>
-  <commands xmi:id="_uav8DQ86Ee6I8MBIDxkhZQ" elementId="org.eclipse.buildship.ui.commands.openbuildscript" commandName="Open Gradle Build Script" description="Opens the Gradle build script for the selected Gradle project" category="_uacaCg86Ee6I8MBIDxkhZQ"/>
+  <commands xmi:id="_uav8DQ86Ee6I8MBIDxkhZQ" elementId="org.eclipse.buildship.ui.commands.openbuildscript" commandName="Open Gradle Build Script" description="Opens the Gradle build script for the selected Gradle projectEntity" category="_uacaCg86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uav8Dg86Ee6I8MBIDxkhZQ" elementId="org.eclipse.egit.ui.FetchGitHubPR" commandName="Fetch GitHub Pull Request" category="_uadoJA86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uav8Dw86Ee6I8MBIDxkhZQ" elementId="org.eclipse.buildship.ui.commands.openrunconfiguration" commandName="Open Gradle Run Configuration" description="Opens the Run Configuration for the selected Gradle tasks" category="_uadoIg86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uav8EA86Ee6I8MBIDxkhZQ" elementId="org.eclipse.egit.ui.history.DeleteTag" commandName="&amp;Delete Tag" category="_uadoKg86Ee6I8MBIDxkhZQ"/>
@@ -2029,12 +2029,12 @@
   <commands xmi:id="_uawjKw86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.edit.text.cut.line.to.end" commandName="Cut to End of Line" description="Cut to the end of a line of text" category="_uacaCQ86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uawjLA86Ee6I8MBIDxkhZQ" elementId="org.eclipse.jdt.ui.correction.convertAnonymousToLocal.assist" commandName="Quick Assist - Convert anonymous to local class" description="Invokes quick assist and selects 'Convert anonymous to local class'" category="_uadoJw86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uawjLQ86Ee6I8MBIDxkhZQ" elementId="org.eclipse.compare.copyLeftToRight" commandName="Copy from Left to Right" description="Copy Current Change from Left to Right" category="_uadBEg86Ee6I8MBIDxkhZQ"/>
-  <commands xmi:id="_uawjLg86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.project.openProject" commandName="Open Project" description="Open a project" category="_uadBGA86Ee6I8MBIDxkhZQ"/>
+  <commands xmi:id="_uawjLg86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.projectEntity.openProject" commandName="Open Project" description="Open a projectEntity" category="_uadBGA86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uawjLw86Ee6I8MBIDxkhZQ" elementId="org.eclipse.egit.ui.history.ShowBlame" commandName="Show Revision Information" category="_uadoKg86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uawjMA86Ee6I8MBIDxkhZQ" elementId="org.eclipse.jdt.ui.correction.addSuppressWarnings" commandName="Quick Fix - Add @SuppressWarnings" description="Invokes quick fix and selects 'Add @SuppressWarnings' " category="_uadoJw86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uawjMQ86Ee6I8MBIDxkhZQ" elementId="org.eclipse.tips.ide.command.trim.open" commandName="Tip of the Day" category="_uadoKg86Ee6I8MBIDxkhZQ"/>
-  <commands xmi:id="_uawjMg86Ee6I8MBIDxkhZQ" elementId="org.eclipse.jdt.ui.edit.text.java.search.write.access.in.project" commandName="Write Access in Project" description="Search for write references to the selected element in the enclosing project" category="_uadoIQ86Ee6I8MBIDxkhZQ"/>
-  <commands xmi:id="_uawjMw86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.project.properties" commandName="Properties" description="Display the properties of the selected item's project " category="_uadBGA86Ee6I8MBIDxkhZQ"/>
+  <commands xmi:id="_uawjMg86Ee6I8MBIDxkhZQ" elementId="org.eclipse.jdt.ui.edit.text.java.search.write.access.in.projectEntity" commandName="Write Access in Project" description="Search for write references to the selected element in the enclosing projectEntity" category="_uadoIQ86Ee6I8MBIDxkhZQ"/>
+  <commands xmi:id="_uawjMw86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.projectEntity.properties" commandName="Properties" description="Display the properties of the selected item's projectEntity " category="_uadBGA86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uawjNA86Ee6I8MBIDxkhZQ" elementId="org.eclipse.egit.ui.history.CompareVersionsInTree" commandName="Compare in Tree" category="_uadoKg86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uawjNQ86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.edit.text.select.columnPrevious" commandName="Select Previous Column" description="Select the previous column" category="_uacaCQ86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uawjNg86Ee6I8MBIDxkhZQ" elementId="org.eclipse.pde.ui.junitWorkbenchShortcut.debug" commandName="Debug JUnit Plug-in Test" description="Debug JUnit Plug-in Test" category="_uadoIg86Ee6I8MBIDxkhZQ"/>
@@ -2137,7 +2137,7 @@
   <commands xmi:id="_uaxxYw86Ee6I8MBIDxkhZQ" elementId="org.eclipse.debug.ui.commands.DropToFrame" commandName="Drop to Frame" description="Drop to Frame" category="_uadoIg86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uaxxZA86Ee6I8MBIDxkhZQ" elementId="org.springsource.ide.eclipse.boot.BootLaunchShortcut.debug" commandName="Debug Spring Boot App" description="Debug Spring Boot App" category="_uadoIg86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uaxxZQ86Ee6I8MBIDxkhZQ" elementId="org.eclipse.pde.api.tools.ui.compare.to.baseline" commandName="API Baseline..." description="Allows to compare the selected resource with the current baseline" category="_uadoKg86Ee6I8MBIDxkhZQ"/>
-  <commands xmi:id="_uaxxZg86Ee6I8MBIDxkhZQ" elementId="org.eclipse.pde.ui.imagebrowser.saveToWorkspace" commandName="Save Image" description="Save the selected image into a project in the workspace" category="_uadoKg86Ee6I8MBIDxkhZQ"/>
+  <commands xmi:id="_uaxxZg86Ee6I8MBIDxkhZQ" elementId="org.eclipse.pde.ui.imagebrowser.saveToWorkspace" commandName="Save Image" description="Save the selected image into a projectEntity in the workspace" category="_uadoKg86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uaxxZw86Ee6I8MBIDxkhZQ" elementId="org.eclipse.jdt.debug.ui.commands.Display" commandName="Display" description="Display result of evaluating selected text" category="_uadoIg86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uaxxaA86Ee6I8MBIDxkhZQ" elementId="org.eclipse.jdt.ui.edit.text.java.search.exception.occurrences" commandName="Search Exception Occurrences in File" description="Search for exception occurrences of a selected exception type" category="_uadoIQ86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uaxxaQ86Ee6I8MBIDxkhZQ" elementId="org.eclipse.tm.terminal.view.ui.command.disconnect" commandName="Disconnect Terminal" category="_uadBEQ86Ee6I8MBIDxkhZQ"/>
@@ -2153,7 +2153,7 @@
   <commands xmi:id="_uayYQA86Ee6I8MBIDxkhZQ" elementId="org.eclipse.jdt.ui.navigate.gotopackage" commandName="Go to Package" description="Go to Package" category="_uacaCg86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uayYQQ86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.window.togglestatusbar" commandName="Toggle Statusbar" description="Toggle the visibility of the bottom status bar" category="_uadBFA86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uayYQg86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.edit.text.select.multiCaretUp" commandName="Multi caret up" description="Add a new caret/multi selection above the current line, or remove the last caret/multi selection " category="_uacaCQ86Ee6I8MBIDxkhZQ"/>
-  <commands xmi:id="_uayYQw86Ee6I8MBIDxkhZQ" elementId="org.eclipse.buildship.ui.commands.addbuildshipnature" commandName="Add Gradle Nature" description="Adds the Gradle nature and synchronizes this project as if the Gradle Import wizard had been run on its location." category="_uacaBw86Ee6I8MBIDxkhZQ"/>
+  <commands xmi:id="_uayYQw86Ee6I8MBIDxkhZQ" elementId="org.eclipse.buildship.ui.commands.addbuildshipnature" commandName="Add Gradle Nature" description="Adds the Gradle nature and synchronizes this projectEntity as if the Gradle Import wizard had been run on its location." category="_uacaBw86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uayYRA86Ee6I8MBIDxkhZQ" elementId="org.eclipse.debug.ui.commands.eof" commandName="EOF" description="Send end of file" category="_uadoIg86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uayYRQ86Ee6I8MBIDxkhZQ" elementId="org.eclipse.egit.ui.AbortRebase" commandName="Abort Rebase" category="_uadoJA86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uayYRg86Ee6I8MBIDxkhZQ" elementId="org.eclipse.lsp4e.typeHierarchy" commandName="Show Type Hierarchy" category="_uacaDQ86Ee6I8MBIDxkhZQ"/>
@@ -2170,7 +2170,7 @@
     <parameters xmi:id="_uayYUQ86Ee6I8MBIDxkhZQ" elementId="path" name="Path"/>
   </commands>
   <commands xmi:id="_uayYUg86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.help.aboutAction" commandName="About" description="Open the about dialog" category="_uadBFg86Ee6I8MBIDxkhZQ"/>
-  <commands xmi:id="_uayYUw86Ee6I8MBIDxkhZQ" elementId="org.eclipse.wst.common.project.facet.ui.ConvertProjectToFacetedForm" commandName="Convert to Faceted Form..." category="_uadBEA86Ee6I8MBIDxkhZQ"/>
+  <commands xmi:id="_uayYUw86Ee6I8MBIDxkhZQ" elementId="org.eclipse.wst.common.projectEntity.facet.ui.ConvertProjectToFacetedForm" commandName="Convert to Faceted Form..." category="_uadBEA86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uayYVA86Ee6I8MBIDxkhZQ" elementId="org.eclipse.jdt.ui.edit.text.java.annotate.classFile" commandName="Annotate Class File" description="Externally add Annotations to a Class File." category="_uadoJw86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uayYVQ86Ee6I8MBIDxkhZQ" elementId="org.eclipse.egit.ui.team.stash.create" commandName="Stash Changes..." category="_uadoJA86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_uayYVg86Ee6I8MBIDxkhZQ" elementId="org.eclipse.jdt.ui.edit.text.java.search.references.in.workspace" commandName="References in Workspace" description="Search for references to the selected element in the workspace" category="_uadoIQ86Ee6I8MBIDxkhZQ"/>
@@ -2243,7 +2243,7 @@
   <commands xmi:id="_zsFSwA86Ee6I8MBIDxkhZQ" elementId="AUTOGEN:::org.eclipse.ui.cheatsheets.actionSet/org.eclipse.ui.cheatsheets.actions.CheatSheetHelpMenuAction" commandName="Cheat Sheets..." category="_uadoKg86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_zsF50A86Ee6I8MBIDxkhZQ" elementId="AUTOGEN:::org.eclipse.search.searchActionSet/org.eclipse.search.OpenSearchDialogPage" commandName="Search..." description="Search" category="_uadoKg86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_zsGg4A86Ee6I8MBIDxkhZQ" elementId="AUTOGEN:::org.eclipse.team.ui.actionSet/org.eclipse.team.ui.synchronizeAll" commandName="Synchronize..." description="Synchronize..." category="_uadoKg86Ee6I8MBIDxkhZQ"/>
-  <commands xmi:id="_zsHH8A86Ee6I8MBIDxkhZQ" elementId="AUTOGEN:::org.eclipse.team.ui.actionSet/org.eclipse.team.ui.ConfigureProject" commandName="Share Project..." description="Share the project with others using a version and configuration management system." category="_uadoKg86Ee6I8MBIDxkhZQ"/>
+  <commands xmi:id="_zsHH8A86Ee6I8MBIDxkhZQ" elementId="AUTOGEN:::org.eclipse.team.ui.actionSet/org.eclipse.team.ui.ConfigureProject" commandName="Share Project..." description="Share the projectEntity with others using a version and configuration management system." category="_uadoKg86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_zsHvAA86Ee6I8MBIDxkhZQ" elementId="AUTOGEN:::org.eclipse.ui.externaltools.ExternalToolsSet/org.eclipse.ui.externaltools.ExternalToolMenuDelegateMenu" commandName="External Tools" category="_uadoKg86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_zsKLQA86Ee6I8MBIDxkhZQ" elementId="AUTOGEN:::org.eclipse.wst.server.ui.new.actionSet/org.eclipse.wst.server.ui.action.new.server" commandName="Create Server" description="Create Server" category="_uadoKg86Ee6I8MBIDxkhZQ"/>
   <commands xmi:id="_zsLZYA86Ee6I8MBIDxkhZQ" elementId="AUTOGEN:::org.eclipse.wst.server.ui.internal.webbrowser.actionSet/org.eclipse.wst.server.ui.internal.webbrowser.action.open" commandName="Open Web Browser" description="Open Web Browser" category="_uadoKg86Ee6I8MBIDxkhZQ"/>
@@ -2398,7 +2398,7 @@
   <categories xmi:id="_uacaBA86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.category.edit" name="Edit"/>
   <categories xmi:id="_uacaBQ86Ee6I8MBIDxkhZQ" elementId="org.springframework.ide.eclipse.boot.commands.category" name="Spring Boot"/>
   <categories xmi:id="_uacaBg86Ee6I8MBIDxkhZQ" elementId="org.eclipse.mylyn.wikitext.ui.editor.category" name="WikiText Markup Editing Commands" description="commands for editing lightweight markup"/>
-  <categories xmi:id="_uacaBw86Ee6I8MBIDxkhZQ" elementId="org.eclipse.buildship.ui.project" name="Buildship" description="Contains the Buildship specific commands"/>
+  <categories xmi:id="_uacaBw86Ee6I8MBIDxkhZQ" elementId="org.eclipse.buildship.ui.projectEntity" name="Buildship" description="Contains the Buildship specific commands"/>
   <categories xmi:id="_uacaCA86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.ide.markerContents" name="Contents" description="The category for menu contents"/>
   <categories xmi:id="_uacaCQ86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.category.textEditor" name="Text Editing" description="Text Editing Commands"/>
   <categories xmi:id="_uacaCg86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.category.navigate" name="Navigate"/>
@@ -2413,7 +2413,7 @@
   <categories xmi:id="_uadBFQ86Ee6I8MBIDxkhZQ" elementId="org.eclipse.jdt.ui.category.refactoring" name="Refactor - Java" description="Java Refactoring Actions"/>
   <categories xmi:id="_uadBFg86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.category.help" name="Help"/>
   <categories xmi:id="_uadBFw86Ee6I8MBIDxkhZQ" elementId="org.springframework.ide.eclipse.commands" name="Spring Generic Text Editor" description="Spring Language Server Commands"/>
-  <categories xmi:id="_uadBGA86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.category.project" name="Project"/>
+  <categories xmi:id="_uadBGA86Ee6I8MBIDxkhZQ" elementId="org.eclipse.ui.category.projectEntity" name="Project"/>
   <categories xmi:id="_uadBGQ86Ee6I8MBIDxkhZQ" elementId="org.springsource.ide.eclipse.common.ui.commands" name="SpringSource Tools"/>
   <categories xmi:id="_uadBGg86Ee6I8MBIDxkhZQ" elementId="org.eclipse.pde.genericeditor.extension.category.source" name="Target Definition Source" description="Target Definition Source Page actions"/>
   <categories xmi:id="_uadoIA86Ee6I8MBIDxkhZQ" elementId="org.eclipse.tm.terminal.category1" name="Terminal view commands" description="Terminal view commands"/>

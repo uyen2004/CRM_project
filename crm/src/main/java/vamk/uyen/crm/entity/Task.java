@@ -67,7 +67,7 @@ public class Task {
 	
 	@ManyToOne
     @JoinColumn(name="project_id", nullable=false)
-    private Project project;
+    private ProjectEntity projectEntity;
 	
 	@ManyToOne
     @JoinColumn(name="status_id", nullable=false)
@@ -82,12 +82,12 @@ public class Task {
 		this.user = user;
 	}
 
-	public Project getProject() {
-		return project;
+	public ProjectEntity getProject() {
+		return projectEntity;
 	}
 
-	public void setProject(Project project) {
-		this.project = project;
+	public void setProject(ProjectEntity projectEntity) {
+		this.projectEntity = projectEntity;
 	}
 
 	public Status getStatus() {
