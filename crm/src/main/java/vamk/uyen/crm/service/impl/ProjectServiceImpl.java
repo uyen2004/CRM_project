@@ -23,4 +23,25 @@ public class ProjectServiceImpl implements ProjectService {
         // return to user
         return Converter.toModel(projectEntity, ProjectResponse.class);
     }
+    @Override
+    public ProjectResponse updateProject(Long id, ProjectEntity projectEntity) {
+        //find if the update entity is exist by id
+        ProjectEntity updateProjectEntity = projectRepository.findById(id).orElse(null);
+
+        //if no update entity was found then return null
+        if(updateProjectEntity == null){
+            return null;
+        }
+        //if the update entity is exist then assign the update entity fields with the field of the request entity
+        updateProjectEntity.setName(projectEntity.getName());
+        updateProjectEntity.setStartDate(projectEntity.getStartDate());
+        updateProjectEntity.setEndDate(projectEntity.getEndDate());
+
+        //then save the update entity to database
+        projectEntity = projectRepository.save(updateProjectEntity);
+
+        //convert and return the update entity
+        return Converter.toModel(projectEntity, ProjectResponse.class);
+    }
+
 }
