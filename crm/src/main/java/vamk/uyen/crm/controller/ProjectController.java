@@ -30,4 +30,9 @@ public class ProjectController {
             return ResponseEntity.ok(projectResponse);
         }
     }
+
+    @GetMapping
+    public Iterable<ProjectResponse> getAllProjects(){
+        return  projectService.getAllProjects();
+    }
 }

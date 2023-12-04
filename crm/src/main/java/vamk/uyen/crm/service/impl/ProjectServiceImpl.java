@@ -44,4 +44,8 @@ public class ProjectServiceImpl implements ProjectService {
         return Converter.toModel(projectEntity, ProjectResponse.class);
     }
 
+    @Override
+    public Iterable<ProjectResponse> getAllProjects(){
+        return Converter.toList(projectRepository.findAll(), ProjectResponse.class);
+    }
 }
