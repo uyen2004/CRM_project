@@ -47,4 +47,17 @@ public class ProjectController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Project with id " + id + " not found");
         }
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteProject(@PathVariable Long id) {
+        ProjectResponse existingProject = projectService.getProject(id);
+        if (existingProject == null) {
+            projectService.deleteProject(id);
+            return ResponseEntity.ok("Project with id " + id + " deleted successfully");
+        } else {
+            // Return a 404 response if the project is not found
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Project with id " + id + " not found");
+        }
+    }
+
 }

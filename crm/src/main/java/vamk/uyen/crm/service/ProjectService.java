@@ -10,4 +10,6 @@ public interface ProjectService {
     Iterable<ProjectResponse> getAllProjects();
 
     ProjectResponse getProject(Long id);
+
+    void deleteProject(Long id);
 }

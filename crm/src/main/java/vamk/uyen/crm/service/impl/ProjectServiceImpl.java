@@ -57,4 +57,9 @@ public class ProjectServiceImpl implements ProjectService {
         }
         return Converter.toModel(existingProject, ProjectResponse.class);
     }
+
+    @Override
+    public void deleteProject(Long id){
+        projectRepository.deleteById(id);
+    }
 }
