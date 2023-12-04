@@ -16,6 +16,7 @@ import vamk.uyen.crm.util.DateValidationUtil;
 @RequiredArgsConstructor
 public class ProjectController {
     private final ProjectService projectService;
+
     @PostMapping
     public ResponseEntity<?> addProject(@RequestBody ProjectRequest projectRequest) {
         if (DateValidationUtil.isDateValidate(projectRequest.getStartDate(), projectRequest.getEndDate())) {
@@ -27,22 +28,22 @@ public class ProjectController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateProject(@PathVariable Long id, @RequestBody ProjectEntity projectEntity){
-        if(DateValidationUtil.isDateValidate(projectEntity.getStartDate(), projectEntity.getEndDate())){
+    public ResponseEntity<?> updateProject(@PathVariable Long id, @RequestBody ProjectEntity projectEntity) {
+        if (DateValidationUtil.isDateValidate(projectEntity.getStartDate(), projectEntity.getEndDate())) {
             ProjectResponse projectResponse = projectService.updateProject(id, projectEntity);
             if (projectResponse == null) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found the project with id: " + id);
             } else {
                 return ResponseEntity.ok(projectResponse);
             }
-        }else{
+        } else {
             return ResponseEntity.badRequest().body("The end date must be later than start date");
         }
     }
 
     @GetMapping
-    public Iterable<ProjectResponse> getAllProjects(){
-        return  projectService.getAllProjects();
+    public Iterable<ProjectResponse> getAllProjects() {
+        return projectService.getAllProjects();
     }
 
     @GetMapping("/{id}")
@@ -57,6 +58,7 @@ public class ProjectController {
         }
     }
 
+
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteProject(@PathVariable Long id) {
         ProjectResponse existingProject = projectService.getProject(id);
@@ -68,5 +70,6 @@ public class ProjectController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Project with id " + id + " not found");
         }
     }
-
 }
+
+
