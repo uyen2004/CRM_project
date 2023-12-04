@@ -35,4 +35,16 @@ public class ProjectController {
     public Iterable<ProjectResponse> getAllProjects(){
         return  projectService.getAllProjects();
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getProject(@PathVariable Long id) {
+        ProjectResponse projectResponse = projectService.getProject(id);
+
+        if (projectResponse != null) {
+            return ResponseEntity.ok(projectResponse);
+        } else {
+            // Return a 404 response if the project is not found
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Project with id " + id + " not found");
+        }
+    }
 }

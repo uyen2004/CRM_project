@@ -8,4 +8,6 @@ public interface ProjectService {
     ProjectResponse addProject(ProjectRequest projectRequest);
     ProjectResponse updateProject(Long id, ProjectEntity projectEntity);
     Iterable<ProjectResponse> getAllProjects();
+
+    ProjectResponse getProject(Long id);
 }

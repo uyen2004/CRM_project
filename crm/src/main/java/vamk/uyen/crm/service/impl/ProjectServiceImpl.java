@@ -48,4 +48,13 @@ public class ProjectServiceImpl implements ProjectService {
     public Iterable<ProjectResponse> getAllProjects(){
         return Converter.toList(projectRepository.findAll(), ProjectResponse.class);
     }
+
+    @Override
+    public ProjectResponse getProject(Long id){
+        ProjectEntity existingProject = projectRepository.findById(id).orElse(null);
+        if(existingProject == null){
+            return null;
+        }
+        return Converter.toModel(existingProject, ProjectResponse.class);
+    }
 }
