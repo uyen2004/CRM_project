@@ -18,14 +18,12 @@ public class ProjectController {
     private final ProjectService projectService;
     @PostMapping
     public ResponseEntity<?> addProject(@RequestBody ProjectRequest projectRequest) {
-        try{
-            DateValidationUtil.validateDate(projectRequest.getStartDate(), projectRequest.getEndDate());
+        if (DateValidationUtil.isDateValidate(projectRequest.getStartDate(), projectRequest.getEndDate())) {
             ProjectResponse projectResponse = projectService.addProject(projectRequest);
             return ResponseEntity.ok(projectResponse);
-        }catch(IllegalArgumentException e){
-            return ResponseEntity.badRequest().body(e.getMessage());
+        } else {
+            return ResponseEntity.badRequest().body("The end date must be later than start date");
         }
-
     }
 
     @PutMapping("/{id}")
