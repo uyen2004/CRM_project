@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vamk.uyen.crm.converter.Converter;
+import vamk.uyen.crm.dto.request.TaskRequest;
 import vamk.uyen.crm.dto.response.TaskResponse;
 import vamk.uyen.crm.repository.TaskRepository;
 import vamk.uyen.crm.entity.TaskEntity;
@@ -28,5 +29,12 @@ public class TaskServiceImpl implements TaskService {
             return  null;
         }
         return Converter.toModel(existingTask, TaskResponse.class);
+    }
+
+    @Override
+    public TaskResponse addTask(TaskRequest taskRequest){
+        TaskEntity newTaskEntity = Converter.toModel(taskRequest, TaskEntity.class);
+        newTaskEntity = taskRepository.save(newTaskEntity);
+        return Converter.toModel(newTaskEntity, TaskResponse.class);
     }
 }
