@@ -8,9 +8,6 @@ import vamk.uyen.crm.dto.response.ProjectResponse;
 import vamk.uyen.crm.entity.ProjectEntity;
 import vamk.uyen.crm.repository.ProjectRepository;
 import vamk.uyen.crm.service.ProjectService;
-import vamk.uyen.crm.util.DateVadilationUtil;
-
-import static vamk.uyen.crm.util.DateVadilationUtil.validateDate;
 
 import java.time.LocalDate;
 
