@@ -45,11 +45,16 @@ public class TaskController {
 
     @PutMapping("/{id}")
     public ResponseEntity<?> updateTask(@PathVariable Long id, @RequestBody TaskRequest taskRequest){
-        TaskResponse taskResponse = taskService.updateTask(id, taskRequest);
-        if(taskResponse == null){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No task with id "+ id+" is found");
+        if(DateValidationUtil.isDateValidate(taskRequest.getStartDate(), taskRequest.getEndDate())){
+            TaskResponse taskResponse = taskService.updateTask(id, taskRequest);
+            if(taskResponse == null){
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No task with id "+ id+" is found");
+            }else{
+                return ResponseEntity.ok(taskResponse);
+            }
         }else{
-            return ResponseEntity.ok(taskResponse);
+            return ResponseEntity.badRequest().body("End date must be later than start date");
         }
+
     }
 }
