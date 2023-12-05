@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import vamk.uyen.crm.dto.request.TaskRequest;
 import vamk.uyen.crm.dto.response.TaskResponse;
 import vamk.uyen.crm.service.TaskService;
+import vamk.uyen.crm.util.DateValidationUtil;
 
 @RestController
 @RequestMapping("/tasks")
@@ -33,7 +34,12 @@ public class TaskController {
 
     @PostMapping
     public ResponseEntity<?> addTask(@RequestBody TaskRequest taskRequest){
-        TaskResponse taskResponse = taskService.addTask(taskRequest);
-        return ResponseEntity.ok(taskResponse);
+        if(DateValidationUtil.isDateValidate(taskRequest.getStartDate(), taskRequest.getEndDate())){
+            TaskResponse taskResponse = taskService.addTask(taskRequest);
+            return ResponseEntity.ok(taskResponse);
+        }else{
+            return ResponseEntity.badRequest().body("End date must be later than start date");
+        }
+
     }
 }
