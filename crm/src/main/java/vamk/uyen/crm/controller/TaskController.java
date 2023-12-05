@@ -46,4 +46,15 @@ public class TaskController {
             return ResponseEntity.ok(taskResponse);
         }
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteTask(@PathVariable Long id){
+        TaskResponse existingTask = taskService.getTask(id);
+        if(existingTask == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No task with id "+ id+" is found");
+        }else{
+            taskService.deleteTask(id);
+            return ResponseEntity.ok("Task with id "+id+ "is deleted successfully");
+        }
+    }
 }

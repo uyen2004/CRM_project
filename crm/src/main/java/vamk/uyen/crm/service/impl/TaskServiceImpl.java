@@ -51,4 +51,9 @@ public class TaskServiceImpl implements TaskService {
         updateTask = taskRepository.save(updateTask);
         return Converter.toModel(updateTask, TaskResponse.class);
     }
+
+    @Override
+    public void deleteTask(Long id){
+        taskRepository.deleteById(id);
+    }
 }
