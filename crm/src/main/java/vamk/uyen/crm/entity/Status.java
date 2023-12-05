@@ -22,13 +22,13 @@ public class Status {
 	private String name;
 	
     @OneToMany(mappedBy="status")
-    private Set<Task> tasks;
+    private Set<TaskEntity> tasks;
 
-	public Set<Task> getTasks() {
+	public Set<TaskEntity> getTasks() {
 		return tasks;
 	}
 
-	public void setTasks(Set<Task> tasks) {
+	public void setTasks(Set<TaskEntity> tasks) {
 		this.tasks = tasks;
 	}
 
