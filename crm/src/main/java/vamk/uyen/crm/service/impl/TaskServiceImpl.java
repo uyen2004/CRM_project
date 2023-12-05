@@ -7,10 +7,11 @@ import vamk.uyen.crm.converter.Converter;
 import vamk.uyen.crm.dto.response.TaskResponse;
 import vamk.uyen.crm.repository.TaskRepository;
 import vamk.uyen.crm.entity.TaskEntity;
+import vamk.uyen.crm.service.TaskService;
 
 @Service
 @RequiredArgsConstructor
-public class TaskServiceImpl {
+public class TaskServiceImpl implements TaskService {
 
     @Autowired
     private TaskRepository taskRepository;
