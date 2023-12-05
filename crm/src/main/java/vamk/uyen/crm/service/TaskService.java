@@ -6,4 +6,5 @@ import vamk.uyen.crm.dto.response.TaskResponse;
 @Service
 public interface TaskService {
     Iterable<TaskResponse> getAllTasks();
+    TaskResponse getTask(Long id);
 }
