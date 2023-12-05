@@ -10,4 +10,6 @@ public interface TaskService {
     TaskResponse getTask(Long id);
 
     TaskResponse addTask(TaskRequest taskRequest);
+
+    TaskResponse updateTask(Long id, TaskRequest taskRequest);
 }
