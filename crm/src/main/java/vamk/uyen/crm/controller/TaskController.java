@@ -42,4 +42,25 @@ public class TaskController {
         }
 
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateTask(@PathVariable Long id, @RequestBody TaskRequest taskRequest){
+        TaskResponse taskResponse = taskService.updateTask(id, taskRequest);
+        if(taskResponse == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No task with id "+ id+" is found");
+        }else{
+            return ResponseEntity.ok(taskResponse);
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteTask(@PathVariable Long id){
+        TaskResponse existingTask = taskService.getTask(id);
+        if(existingTask == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No task with id "+ id+" is found");
+        }else{
+            taskService.deleteTask(id);
+            return ResponseEntity.ok("Task with id "+id+ "is deleted successfully");
+        }
+    }
 }

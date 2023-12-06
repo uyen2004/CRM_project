@@ -37,4 +37,23 @@ public class TaskServiceImpl implements TaskService {
         newTaskEntity = taskRepository.save(newTaskEntity);
         return Converter.toModel(newTaskEntity, TaskResponse.class);
     }
+
+    @Override
+    public TaskResponse updateTask(Long id, TaskRequest taskRequest){
+        TaskEntity updateTask = taskRepository.findById(id).orElse(null);
+        if(updateTask == null){
+            return null;
+        }
+        updateTask.setName(taskRequest.getName());
+        updateTask.setStartDate(taskRequest.getStartDate());
+        updateTask.setEndDate(taskRequest.getEndDate());
+
+        updateTask = taskRepository.save(updateTask);
+        return Converter.toModel(updateTask, TaskResponse.class);
+    }
+
+    @Override
+    public void deleteTask(Long id){
+        taskRepository.deleteById(id);
+    }
 }
