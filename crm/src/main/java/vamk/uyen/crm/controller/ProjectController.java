@@ -61,7 +61,7 @@ public class ProjectController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteProject(@PathVariable Long id) {
         ProjectResponse existingProject = projectService.getProject(id);
-        if (existingProject == null) {
+        if (existingProject != null) {
             projectService.deleteProject(id);
             return ResponseEntity.ok("Project with id " + id + " deleted successfully");
         } else {
