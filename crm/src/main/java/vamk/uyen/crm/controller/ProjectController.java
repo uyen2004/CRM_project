@@ -16,7 +16,6 @@ import vamk.uyen.crm.util.DateValidationUtil;
 @RequiredArgsConstructor
 public class ProjectController {
     private final ProjectService projectService;
-
     @PostMapping
     public ResponseEntity<?> addProject(@RequestBody ProjectRequest projectRequest) {
         if (DateValidationUtil.isDateValidate(projectRequest.getStartDate(), projectRequest.getEndDate())) {
