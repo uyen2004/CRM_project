@@ -11,6 +11,8 @@ import vamk.uyen.crm.entity.ProjectEntity;
 import vamk.uyen.crm.service.ProjectService;
 import vamk.uyen.crm.util.DateValidationUtil;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/projects")
 @RequiredArgsConstructor
@@ -42,8 +44,8 @@ public class ProjectController {
     }
 
     @GetMapping
-    public Iterable<ProjectResponse> getAllProjects() {
-        return projectService.getAllProjects();
+    public ResponseEntity<List<ProjectResponse>> getAllProjects() {
+        return ResponseEntity.ok(projectService.getAllProjects());
     }
 
     @GetMapping("/{id}")

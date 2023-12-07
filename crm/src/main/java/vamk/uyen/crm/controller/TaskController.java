@@ -10,16 +10,17 @@ import vamk.uyen.crm.dto.response.TaskResponse;
 import vamk.uyen.crm.service.TaskService;
 import vamk.uyen.crm.util.DateValidationUtil;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/tasks")
-@RequiredArgsConstructor
 public class TaskController {
     @Autowired
     private TaskService taskService;
 
     @GetMapping
-    public Iterable<TaskResponse> getAllTasks(){
-        return taskService.getAllTasks();
+    public ResponseEntity<List<TaskResponse>> getAllTasks(){
+        return ResponseEntity.ok(taskService.getAllTasks());
     }
 
     @GetMapping("/{id}")
