@@ -25,48 +25,44 @@ public class TaskController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getTask(@PathVariable Long id){
+        try{
         TaskResponse taskResponse = taskService.getTask(id);
-        if(taskResponse == null){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found the task with id "+id);
-        }else{
             return ResponseEntity.ok(taskResponse);
+        }catch (RuntimeException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 
     @PostMapping
     public ResponseEntity<?> addTask(@RequestBody TaskRequest taskRequest){
-        if(DateValidationUtil.isDateValidate(taskRequest.getStartDate(), taskRequest.getEndDate())){
+        try{
             TaskResponse taskResponse = taskService.addTask(taskRequest);
             return ResponseEntity.ok(taskResponse);
-        }else{
-            return ResponseEntity.badRequest().body("End date must be later than start date");
+        }catch (IllegalArgumentException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
 
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<?> updateTask(@PathVariable Long id, @RequestBody TaskRequest taskRequest){
-        if(DateValidationUtil.isDateValidate(taskRequest.getStartDate(), taskRequest.getEndDate())){
-            TaskResponse taskResponse = taskService.updateTask(id, taskRequest);
-            if(taskResponse == null){
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No task with id "+ id+" is found");
-            }else{
+            try{
+                TaskResponse taskResponse = taskService.updateTask(id, taskRequest);
                 return ResponseEntity.ok(taskResponse);
+            }catch(IllegalArgumentException e){
+                return ResponseEntity.badRequest().body(e.getMessage());
+            }catch (RuntimeException e) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
             }
-        }else{
-            return ResponseEntity.badRequest().body("End date must be later than start date");
-        }
-
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteTask(@PathVariable Long id){
-        TaskResponse existingTask = taskService.getTask(id);
-        if(existingTask == null){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No task with id "+ id+" is found");
-        }else{
+        try{
             taskService.deleteTask(id);
             return ResponseEntity.ok("Task with id "+id+ "is deleted successfully");
+        }catch (RuntimeException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 }
