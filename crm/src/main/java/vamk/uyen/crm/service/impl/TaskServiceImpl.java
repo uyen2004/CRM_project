@@ -10,15 +10,16 @@ import vamk.uyen.crm.repository.TaskRepository;
 import vamk.uyen.crm.entity.TaskEntity;
 import vamk.uyen.crm.service.TaskService;
 
+import java.util.List;
+
 @Service
-@RequiredArgsConstructor
 public class TaskServiceImpl implements TaskService {
 
     @Autowired
     private TaskRepository taskRepository;
 
     @Override
-    public Iterable<TaskResponse> getAllTasks(){
+    public List<TaskResponse> getAllTasks(){
        return Converter.toList(taskRepository.findAll(), TaskResponse.class);
     }
 

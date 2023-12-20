@@ -10,6 +10,7 @@ import vamk.uyen.crm.repository.ProjectRepository;
 import vamk.uyen.crm.service.ProjectService;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -57,7 +58,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public Iterable<ProjectResponse> getAllProjects(){
+    public List<ProjectResponse> getAllProjects(){
         return Converter.toList(projectRepository.findAll(), ProjectResponse.class);
     }
 

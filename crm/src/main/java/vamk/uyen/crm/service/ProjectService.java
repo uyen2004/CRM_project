@@ -5,11 +5,13 @@ import vamk.uyen.crm.dto.request.ProjectRequest;
 import vamk.uyen.crm.dto.response.ProjectResponse;
 import vamk.uyen.crm.entity.ProjectEntity;
 
+import java.util.List;
+
 @Service
 public interface ProjectService {
     ProjectResponse addProject(ProjectRequest projectRequest);
     ProjectResponse updateProject(Long id, ProjectEntity projectEntity);
-    Iterable<ProjectResponse> getAllProjects();
+    List<ProjectResponse> getAllProjects();
 
     ProjectResponse getProject(Long id);
 
