@@ -2,14 +2,18 @@ package vamk.uyen.crm.controller;
 
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
 import vamk.uyen.crm.dto.request.ProjectRequest;
 import vamk.uyen.crm.dto.response.ProjectResponse;
 import vamk.uyen.crm.entity.ProjectEntity;
 import vamk.uyen.crm.service.ProjectService;
 import vamk.uyen.crm.util.DateValidationUtil;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/projects")
@@ -19,55 +23,49 @@ public class ProjectController {
 
     @PostMapping
     public ResponseEntity<?> addProject(@RequestBody ProjectRequest projectRequest) {
-        if (DateValidationUtil.isDateValidate(projectRequest.getStartDate(), projectRequest.getEndDate())) {
+        try{
             ProjectResponse projectResponse = projectService.addProject(projectRequest);
             return ResponseEntity.ok(projectResponse);
-        } else {
-            return ResponseEntity.badRequest().body("The end date must be later than start date");
+        }catch (IllegalArgumentException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<?> updateProject(@PathVariable Long id, @RequestBody ProjectEntity projectEntity) {
-        if (DateValidationUtil.isDateValidate(projectEntity.getStartDate(), projectEntity.getEndDate())) {
+        try {
             ProjectResponse projectResponse = projectService.updateProject(id, projectEntity);
-            if (projectResponse == null) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found the project with id: " + id);
-            } else {
-                return ResponseEntity.ok(projectResponse);
-            }
-        } else {
-            return ResponseEntity.badRequest().body("The end date must be later than start date");
+            return ResponseEntity.ok(projectResponse);
+        }catch(IllegalArgumentException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }catch (RuntimeException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 
     @GetMapping
-    public Iterable<ProjectResponse> getAllProjects() {
-        return projectService.getAllProjects();
+    public ResponseEntity<List<ProjectResponse>> getAllProjects() {
+        return ResponseEntity.ok(projectService.getAllProjects());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getProject(@PathVariable Long id) {
+        try{
         ProjectResponse projectResponse = projectService.getProject(id);
-
-        if (projectResponse != null) {
             return ResponseEntity.ok(projectResponse);
-        } else {
-            // Return a 404 response if the project is not found
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Project with id " + id + " not found");
+        }catch(RuntimeException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteProject(@PathVariable Long id) {
-        ProjectResponse existingProject = projectService.getProject(id);
-        if (existingProject != null) {
+        try {
             projectService.deleteProject(id);
-            return ResponseEntity.ok("Project with id " + id + " deleted successfully");
-        } else {
-            // Return a 404 response if the project is not found
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Project with id " + id + " not found");
+            return ResponseEntity.ok("Successfully delete project with id " + id);
+        }  catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 }
