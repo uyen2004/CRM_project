@@ -1,13 +1,14 @@
 package vamk.uyen.crm.repository;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
 import vamk.uyen.crm.entity.Role;
 
-@Repository
-public interface RoleRepository extends CrudRepository<Role, Integer>{
+import java.util.Optional;
 
-	Role findByName(String name);
+@Repository
+public interface RoleRepository extends JpaRepository<Role, Long> {
+
+    Optional<Role> findByName(String name);
 
 }

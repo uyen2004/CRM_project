@@ -4,20 +4,21 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
 @NoArgsConstructor
-public class ProjectRequest {
+public class UserRequest {
     @NotEmpty
-    private String name;
+    private String username;
+    @Email
     @NotEmpty
-    private String startDate;
+    private String email;
     @NotEmpty
-    private String endDate;
+    private String phoneNum;
 
-    private List<TaskRequest> tasks = new ArrayList<>();
+    private Set<RoleRequest> roles;
 }

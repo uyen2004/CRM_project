@@ -1,53 +1,17 @@
 package vamk.uyen.crm.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import vamk.uyen.crm.dto.request.RegisterDto;
+import vamk.uyen.crm.dto.request.UserRequest;
+import vamk.uyen.crm.dto.response.UserResponse;
 
-import jakarta.transaction.Transactional;
-import vamk.uyen.crm.entity.Role;
-import vamk.uyen.crm.entity.User;
-import vamk.uyen.crm.repository.RoleRepository;
-import vamk.uyen.crm.repository.UserRepository;
+import java.util.List;
 
-@Service
-@Transactional
-public class UserService {
+public interface UserService {
+    UserResponse findUserById(Long id);
 
-    @Autowired
-    private UserRepository userRepository;
+    List<UserResponse> findAllUser();
 
-    @Autowired
-    private RoleRepository roleRepository; 
+    void updateUser(Long id, UserRequest userDto);
 
-    public Iterable<User> getAllUsers() {
-        return userRepository.findAll();
-    }
-
-    public User getUserById(Integer userId) {
-        return userRepository.findById(userId).orElse(null);
-    }
-
-    public User saveUser(User user) {
-        Role userRole = user.getRole();
-        System.out.println("User role: " + user.getRole());
-        if (userRole == null || userRole.getId() == null) {
-            return null;
-        }
-
-        Role existingRole = roleRepository.findById(userRole.getId()).orElse(null);
-        
-        if (existingRole == null) {
-            return null; 
-        }
-
-        user.setRole(existingRole);
-
-        return userRepository.save(user);
-    }
-
-
-
-    public void deleteUser(Integer userId) {
-        userRepository.deleteById(userId);
-    }
+    void deleteUserById(Long id);
 }

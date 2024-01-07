@@ -1,35 +1,17 @@
 package vamk.uyen.crm.service;
 
+import vamk.uyen.crm.dto.request.RoleRequest;
+import vamk.uyen.crm.dto.response.RoleResponse;
+import vamk.uyen.crm.entity.Role;
+
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+public interface RoleService {
+    void addRole(RoleRequest roleDto);
 
-import jakarta.transaction.Transactional;
-import vamk.uyen.crm.entity.Role;
-import vamk.uyen.crm.repository.RoleRepository;
+    List<RoleResponse> getAllRoles();
 
-@Service
-@Transactional
-public class RoleService {
-	
-	@Autowired
-	private RoleRepository repo;
-	
-	public Iterable<Role> getRoles(){
-		return repo.findAll();
-	}
+    void deleteRole(Long id);
 
-	
-	public Role getRole(int id) {
-		return repo.findById(id).orElse(null);
-	}
-	
-	public Role saveRole(Role role) {
-		return repo.save(role);
-	}
-	
-	public void deleteRole(Integer id) {
-		repo.deleteById(id);
-	}
+    void setRole(Long userId, Role roleName);
 }

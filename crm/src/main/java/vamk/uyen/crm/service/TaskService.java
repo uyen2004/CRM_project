@@ -4,14 +4,17 @@ import org.springframework.stereotype.Service;
 import vamk.uyen.crm.dto.request.TaskRequest;
 import vamk.uyen.crm.dto.response.TaskResponse;
 
+import java.util.List;
+
 @Service
 public interface TaskService {
-    Iterable<TaskResponse> getAllTasks();
-    TaskResponse getTask(Long id);
+    List<TaskResponse> findAllTasks();
 
-    TaskResponse addTask(TaskRequest taskRequest);
+    TaskResponse findTaskById(Long id);
 
-    TaskResponse updateTask(Long id, TaskRequest taskRequest);
+    void addTask(Long projectId, TaskRequest taskDto);
+
+    void updateTask(Long id, TaskRequest taskDto);
 
     void deleteTask(Long id);
 }

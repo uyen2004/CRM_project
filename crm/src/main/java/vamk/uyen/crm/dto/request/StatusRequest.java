@@ -5,19 +5,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
-public class ProjectRequest {
+public class StatusRequest {
     @NotEmpty
     private String name;
-    @NotEmpty
-    private String startDate;
-    @NotEmpty
-    private String endDate;
-
-    private List<TaskRequest> tasks = new ArrayList<>();
 }

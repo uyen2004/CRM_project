@@ -1,9 +1,14 @@
 package vamk.uyen.crm.repository;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+import vamk.uyen.crm.entity.UserEntity;
 
-import vamk.uyen.crm.entity.User;
+import java.util.Optional;
 
-public interface UserRepository extends CrudRepository<User, Integer>{
-	
+@Repository
+public interface UserRepository extends JpaRepository<UserEntity, Long> {
+    Optional<UserEntity> findByEmail(String email);
+
+    Boolean existsByEmail(String email);
 }

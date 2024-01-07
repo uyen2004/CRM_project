@@ -1,71 +1,55 @@
 package vamk.uyen.crm.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vamk.uyen.crm.dto.request.TaskRequest;
 import vamk.uyen.crm.dto.response.TaskResponse;
 import vamk.uyen.crm.service.TaskService;
-import vamk.uyen.crm.util.DateValidationUtil;
+
+import javax.validation.Valid;
+import java.util.List;
 
 @RestController
-@RequestMapping("/tasks")
+@RequestMapping("/api/v1")
 @RequiredArgsConstructor
 public class TaskController {
-    @Autowired
-    private TaskService taskService;
+    private final TaskService taskService;
 
-    @GetMapping
-    public Iterable<TaskResponse> getAllTasks(){
-        return taskService.getAllTasks();
+    @GetMapping("/tasks")
+    public ResponseEntity<List<TaskResponse>> findAllTasks() {
+        var taskList = taskService.findAllTasks();
+
+        return new ResponseEntity<>(taskList, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getTask(@PathVariable Long id){
-        TaskResponse taskResponse = taskService.getTask(id);
-        if(taskResponse == null){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found the task with id "+id);
-        }else{
-            return ResponseEntity.ok(taskResponse);
-        }
+    @GetMapping("/tasks/{id}")
+    public ResponseEntity<TaskResponse> findTaskById(@PathVariable Long id) {
+        var task = taskService.findTaskById(id);
+
+        return new ResponseEntity<>(task, HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<?> addTask(@RequestBody TaskRequest taskRequest){
-        if(DateValidationUtil.isDateValidate(taskRequest.getStartDate(), taskRequest.getEndDate())){
-            TaskResponse taskResponse = taskService.addTask(taskRequest);
-            return ResponseEntity.ok(taskResponse);
-        }else{
-            return ResponseEntity.badRequest().body("End date must be later than start date");
-        }
+    @PostMapping("/projects/{projectId}/tasks")
+    public ResponseEntity<String> addTask(@PathVariable Long projectId, @Valid @RequestBody TaskRequest taskDto) {
+        taskService.addTask(projectId, taskDto);
+
+        return new ResponseEntity<>("successfull", HttpStatus.CREATED);
 
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<?> updateTask(@PathVariable Long id, @RequestBody TaskRequest taskRequest){
-        if(DateValidationUtil.isDateValidate(taskRequest.getStartDate(), taskRequest.getEndDate())){
-            TaskResponse taskResponse = taskService.updateTask(id, taskRequest);
-            if(taskResponse == null){
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No task with id "+ id+" is found");
-            }else{
-                return ResponseEntity.ok(taskResponse);
-            }
-        }else{
-            return ResponseEntity.badRequest().body("End date must be later than start date");
-        }
+    @PutMapping("/tasks/{id}")
+    public ResponseEntity<String> updateTask(@PathVariable Long id, @Valid @RequestBody TaskRequest taskDto) {
+        taskService.updateTask(id, taskDto);
 
+        return new ResponseEntity<>("Updated", HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteTask(@PathVariable Long id){
-        TaskResponse existingTask = taskService.getTask(id);
-        if(existingTask == null){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No task with id "+ id+" is found");
-        }else{
-            taskService.deleteTask(id);
-            return ResponseEntity.ok("Task with id "+id+ "is deleted successfully");
-        }
+    @DeleteMapping("/tasks/{id}")
+    public ResponseEntity<String> deleteTask(@PathVariable Long id) {
+        taskService.deleteTask(id);
+
+        return new ResponseEntity<>("deleted", HttpStatus.OK);
     }
 }

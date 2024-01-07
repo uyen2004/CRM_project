@@ -1,50 +1,53 @@
 package vamk.uyen.crm.controller;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
+import vamk.uyen.crm.dto.request.RoleRequest;
+import vamk.uyen.crm.dto.response.RoleResponse;
 import vamk.uyen.crm.entity.Role;
 import vamk.uyen.crm.service.RoleService;
 
+import javax.validation.Valid;
+import java.util.List;
+
 @RestController
-@RequestMapping("/roles")
+@RequestMapping("/api/v1")
+@RequiredArgsConstructor
 public class RoleController {
-	
-	@Autowired
-	private RoleService service;
-	
-	@GetMapping("")
-	public List<Role> listAll() {
-        return (List<Role>) service.getRoles();
+
+    private final RoleService roleService;
+
+    @GetMapping("/roles")
+    public ResponseEntity<List<RoleResponse>> getAllRoles() {
+        var roleList = roleService.getAllRoles();
+
+        return new ResponseEntity<>(roleList, HttpStatus.OK);
     }
-	
-	@GetMapping("/{id}")
-	public Role getRole(@PathVariable Integer id) {
-		return service.getRole(id);
-	}
-	
-	@PostMapping("")
-	public Role save(@RequestBody Role role) {
-		return service.saveRole(role);
-	}
-	
-    @PutMapping("/{id}")
-    public Role update(@PathVariable Integer id, @RequestBody Role role) {
-    	role.setId(id);
-        return service.saveRole(role);
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PostMapping("/roles")
+    public ResponseEntity<String> addRole(@Valid @RequestBody RoleRequest roleDto) {
+        roleService.addRole(roleDto);
+
+        return new ResponseEntity<>("successful", HttpStatus.CREATED);
     }
-	
-	@DeleteMapping("/{id}")
-	public void delete(@PathVariable Integer id) {
-		service.deleteRole(id);
-	}
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PostMapping("/users/{userId}/roles")
+    public ResponseEntity<String> setRole(@PathVariable Long userId, @RequestBody Role role){
+        roleService.setRole(userId, role);
+
+        return new ResponseEntity<>("successful", HttpStatus.OK);
+    }
+
+
+    @DeleteMapping("/roles/{id}")
+    public ResponseEntity<String> deleteRole(@PathVariable Long id) {
+        roleService.deleteRole(id);
+
+        return new ResponseEntity<>("deleted", HttpStatus.OK);
+    }
 }

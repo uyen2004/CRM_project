@@ -7,68 +7,51 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vamk.uyen.crm.dto.request.ProjectRequest;
 import vamk.uyen.crm.dto.response.ProjectResponse;
-import vamk.uyen.crm.entity.ProjectEntity;
 import vamk.uyen.crm.service.ProjectService;
-import vamk.uyen.crm.util.DateValidationUtil;
+
+import javax.validation.Valid;
+import java.util.List;
 
 @RestController
-@RequestMapping("/projects")
+@RequestMapping("/api/v1")
 @RequiredArgsConstructor
 public class ProjectController {
     private final ProjectService projectService;
 
-    @PostMapping
-    public ResponseEntity<?> addProject(@RequestBody ProjectRequest projectRequest) {
-        if (DateValidationUtil.isDateValidate(projectRequest.getStartDate(), projectRequest.getEndDate())) {
-            ProjectResponse projectResponse = projectService.addProject(projectRequest);
-            return ResponseEntity.ok(projectResponse);
-        } else {
-            return ResponseEntity.badRequest().body("The end date must be later than start date");
-        }
+    @PostMapping("/projects")
+    public ResponseEntity<String> addProject(@Valid @RequestBody ProjectRequest projectDto) {
+        projectService.addProject(projectDto);
+
+        return new ResponseEntity<>("successfully", HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<?> updateProject(@PathVariable Long id, @RequestBody ProjectEntity projectEntity) {
-        if (DateValidationUtil.isDateValidate(projectEntity.getStartDate(), projectEntity.getEndDate())) {
-            ProjectResponse projectResponse = projectService.updateProject(id, projectEntity);
-            if (projectResponse == null) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found the project with id: " + id);
-            } else {
-                return ResponseEntity.ok(projectResponse);
-            }
-        } else {
-            return ResponseEntity.badRequest().body("The end date must be later than start date");
-        }
+    @PutMapping("/projects/{id}")
+    public ResponseEntity<String> updateProject(@PathVariable Long id, @Valid @RequestBody ProjectRequest projectDto) {
+        projectService.updateProject(id, projectDto);
+
+        return new ResponseEntity<>("updated", HttpStatus.OK);
     }
 
-    @GetMapping
-    public Iterable<ProjectResponse> getAllProjects() {
-        return projectService.getAllProjects();
+    @GetMapping("/projects")
+    public ResponseEntity<List<ProjectResponse>> findAllProjects() {
+        var projectList = projectService.findAllProjects();
+
+        return new ResponseEntity<>(projectList, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getProject(@PathVariable Long id) {
-        ProjectResponse projectResponse = projectService.getProject(id);
+    @GetMapping("/projects/{id}")
+    public ResponseEntity<ProjectResponse> findProjectById(@PathVariable Long id) {
+        var project = projectService.findProjectById(id);
 
-        if (projectResponse != null) {
-            return ResponseEntity.ok(projectResponse);
-        } else {
-            // Return a 404 response if the project is not found
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Project with id " + id + " not found");
-        }
+        return new ResponseEntity<>(project, HttpStatus.OK);
     }
 
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteProject(@PathVariable Long id) {
-        ProjectResponse existingProject = projectService.getProject(id);
-        if (existingProject != null) {
-            projectService.deleteProject(id);
-            return ResponseEntity.ok("Project with id " + id + " deleted successfully");
-        } else {
-            // Return a 404 response if the project is not found
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Project with id " + id + " not found");
-        }
+    @DeleteMapping("/projects/{id}")
+    public ResponseEntity<String> deleteProject(@PathVariable Long id) {
+        projectService.deleteProject(id);
+
+        return new ResponseEntity<>("deleted", HttpStatus.OK);
     }
 }
 
