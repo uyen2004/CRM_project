@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import vamk.uyen.crm.dto.request.LoginDto;
 import vamk.uyen.crm.dto.request.RegisterDto;
+import vamk.uyen.crm.dto.response.JwtAuthResponse;
 import vamk.uyen.crm.service.AuthService;
 
 @RestController
@@ -20,10 +21,13 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginDto loginDto){
-        String response = authService.login(loginDto);
+    public ResponseEntity<JwtAuthResponse> login(@RequestBody LoginDto loginDto){
+        String token = authService.login(loginDto);
 
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        JwtAuthResponse jwtAuthResponse = new JwtAuthResponse();
+        jwtAuthResponse.setAccessToken(token);
+
+        return new ResponseEntity<>(jwtAuthResponse, HttpStatus.OK);
     }
 
     @PostMapping("/register")
