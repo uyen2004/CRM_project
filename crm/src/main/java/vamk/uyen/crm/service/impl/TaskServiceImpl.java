@@ -1,9 +1,14 @@
 package vamk.uyen.crm.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import vamk.uyen.crm.converter.Converter;
 import vamk.uyen.crm.dto.request.TaskRequest;
+import vamk.uyen.crm.dto.response.PaginatedResponse;
 import vamk.uyen.crm.dto.response.TaskResponse;
 import vamk.uyen.crm.entity.Task;
 import vamk.uyen.crm.entity.TaskStatus;
@@ -27,10 +32,30 @@ public class TaskServiceImpl implements TaskService {
     private final UserRepository userRepository;
 
     @Override
-    public List<TaskResponse> findAllTasks() {
-        var taskList = taskRepository.findAll();
+    public PaginatedResponse<TaskResponse> findAllTasks(int pageNo, int pageSize, String sortBy, String sortDir) {
 
-        return Converter.toList(taskList, TaskResponse.class);
+        // check sort direction
+        Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()
+                : Sort.by(sortBy).descending();
+
+        // create Pageable instance
+        Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
+
+        Page<Task> taskPage = taskRepository.findAll(pageable);
+
+        // get content from page object
+        List<Task> taskList = taskPage.getContent();
+        List<TaskResponse> content = converter.toList(taskList, TaskResponse.class);
+
+        PaginatedResponse<TaskResponse> taskResponse = new PaginatedResponse<>();
+        taskResponse.setContent(content);
+        taskResponse.setPageNo(taskPage.getNumber());
+        taskResponse.setPageSize(taskPage.getSize());
+        taskResponse.setTotalElements(taskPage.getTotalElements());
+        taskResponse.setTotalPages(taskPage.getTotalPages());
+        taskResponse.setLast(taskPage.isLast());
+
+        return taskResponse;
     }
 
     @Override

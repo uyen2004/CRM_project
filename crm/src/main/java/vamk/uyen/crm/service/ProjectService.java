@@ -2,9 +2,8 @@ package vamk.uyen.crm.service;
 
 import org.springframework.stereotype.Service;
 import vamk.uyen.crm.dto.request.ProjectRequest;
+import vamk.uyen.crm.dto.response.PaginatedResponse;
 import vamk.uyen.crm.dto.response.ProjectResponse;
-
-import java.util.List;
 
 @Service
 public interface ProjectService {
@@ -12,7 +11,7 @@ public interface ProjectService {
 
     void updateProject(Long id, ProjectRequest projectDto);
 
-    List<ProjectResponse> findAllProjects();
+    PaginatedResponse<ProjectResponse> findAllProjects(int pageNo, int pageSize, String sortBy, String sortDir);
 
     ProjectResponse findProjectById(Long id);
 

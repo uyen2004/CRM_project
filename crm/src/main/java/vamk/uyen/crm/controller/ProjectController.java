@@ -2,12 +2,15 @@ package vamk.uyen.crm.controller;
 
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vamk.uyen.crm.dto.request.ProjectRequest;
+import vamk.uyen.crm.dto.response.PaginatedResponse;
 import vamk.uyen.crm.dto.response.ProjectResponse;
 import vamk.uyen.crm.service.ProjectService;
+import vamk.uyen.crm.util.AppConstants;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -33,10 +36,15 @@ public class ProjectController {
     }
 
     @GetMapping("/projects")
-    public ResponseEntity<List<ProjectResponse>> findAllProjects() {
-        var projectList = projectService.findAllProjects();
+    public ResponseEntity<PaginatedResponse<ProjectResponse>> findAllProjects(
+            @RequestParam(name = "pageNo", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
+            @RequestParam(name = "pageSize", defaultValue = AppConstants.DEFAULT_PAGE_SIZE, required = false) int pageSize,
+            @RequestParam(name = "sortBy", defaultValue = AppConstants.DEFAUT_SORT_BY, required = false) String sortBy,
+            @RequestParam(name = "sortDir", defaultValue = AppConstants.DEFAULT_SORT_DIRECTION, required = false) String sortDir) {
 
-        return new ResponseEntity<>(projectList, HttpStatus.OK);
+        PaginatedResponse<ProjectResponse> projectResponse = projectService.findAllProjects(pageNo, pageSize, sortBy, sortDir);
+
+        return new ResponseEntity<>(projectResponse, HttpStatus.OK);
     }
 
     @GetMapping("/projects/{id}")

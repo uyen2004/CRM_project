@@ -1,9 +1,14 @@
 package vamk.uyen.crm.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import vamk.uyen.crm.converter.Converter;
 import vamk.uyen.crm.dto.request.ProjectRequest;
+import vamk.uyen.crm.dto.response.PaginatedResponse;
 import vamk.uyen.crm.dto.response.ProjectResponse;
 import vamk.uyen.crm.entity.Project;
 import vamk.uyen.crm.exception.ResourceNotFoundException;
@@ -37,10 +42,30 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public List<ProjectResponse> findAllProjects() {
-        var projectList = projectRepository.findAll();
+    public PaginatedResponse<ProjectResponse> findAllProjects(int pageNo, int pageSize, String sortBy, String sortDir) {
 
-        return converter.toList(projectList, ProjectResponse.class);
+        // check sort direction
+        Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()
+                : Sort.by(sortBy).descending();
+
+        // create Pageable instance
+        Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
+
+        Page<Project> projectPage = projectRepository.findAll(pageable);
+
+        // get content from page object
+        List<Project> projectList = projectPage.getContent();
+        List<ProjectResponse> content = converter.toList(projectList, ProjectResponse.class);
+
+        PaginatedResponse<ProjectResponse> projectResponse = new PaginatedResponse<>();
+        projectResponse.setContent(content);
+        projectResponse.setPageNo(projectPage.getNumber());
+        projectResponse.setPageSize(projectPage.getSize());
+        projectResponse.setTotalElements(projectPage.getTotalElements());
+        projectResponse.setTotalPages(projectPage.getTotalPages());
+        projectResponse.setLast(projectPage.isLast());
+
+        return projectResponse;
     }
 
     @Override
