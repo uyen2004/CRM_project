@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Table(name = "tasks")
 @Getter
@@ -27,21 +29,11 @@ public class Task {
     @JoinColumn(name = "project_id")
     private Project project;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "status_id")
-    private Status status;
+    @Enumerated(EnumType.STRING)
+    private TaskStatus status;
 
-//	@ManyToOne
-//    @JoinColumn(name="user_id", nullable=false)
-//    private User user;
-//
-//	@ManyToOne
-//    @JoinColumn(name="project_id", nullable=false)
-//    private ProjectEntity projectEntity;
-//
-//	@ManyToOne
-//    @JoinColumn(name="status_id", nullable=false)
-//    private Status status;
+    @ManyToMany(mappedBy = "tasks", cascade = CascadeType.ALL)
+    private List<UserEntity> implementers;
 
 
 }

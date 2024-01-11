@@ -47,6 +47,8 @@ public class RoleServiceImpl implements RoleService {
         Set<Role> roleSet = user.getRoles();
         roleSet.add(settedrole);
 
+        user.setRoles(roleSet);
+
         userRepository.save(user);
     }
 }

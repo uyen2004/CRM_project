@@ -5,8 +5,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
 
 @Getter
 @Setter
@@ -15,9 +16,9 @@ public class ProjectRequest {
     @NotEmpty
     private String name;
     @NotEmpty
-    private String startDate;
+    private Date startDate;
     @NotEmpty
-    private String endDate;
+    private Date endDate;
 
-    private List<TaskRequest> tasks = new ArrayList<>();
+    private List<TaskRequest> tasks;
 }

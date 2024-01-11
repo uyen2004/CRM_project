@@ -6,11 +6,15 @@ import vamk.uyen.crm.converter.Converter;
 import vamk.uyen.crm.dto.request.TaskRequest;
 import vamk.uyen.crm.dto.response.TaskResponse;
 import vamk.uyen.crm.entity.Task;
+import vamk.uyen.crm.entity.TaskStatus;
+import vamk.uyen.crm.entity.UserEntity;
 import vamk.uyen.crm.exception.ResourceNotFoundException;
 import vamk.uyen.crm.repository.ProjectRepository;
 import vamk.uyen.crm.repository.TaskRepository;
+import vamk.uyen.crm.repository.UserRepository;
 import vamk.uyen.crm.service.TaskService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -20,6 +24,7 @@ public class TaskServiceImpl implements TaskService {
     private final TaskRepository taskRepository;
     private final ProjectRepository projectRepository;
     private final Converter converter;
+    private final UserRepository userRepository;
 
     @Override
     public List<TaskResponse> findAllTasks() {
@@ -42,11 +47,30 @@ public class TaskServiceImpl implements TaskService {
 
         var taskList = existingProject.getTasks();
         var addedTask = converter.toModel(taskDto, Task.class);
+        addedTask.setStatus(TaskStatus.NOT_STARTED);
+
         taskList.add(addedTask);
         existingProject.setTasks(taskList);
+        addedTask.setProject(existingProject);
 
-        projectRepository.save(existingProject);
+
         taskRepository.save(addedTask);
+        projectRepository.save(existingProject);
+    }
+
+    @Override
+    public void setImplementer(Long taskId, Long userId) {
+        var existingTask = taskRepository.findById(taskId).orElseThrow(() ->
+                new ResourceNotFoundException("Task not found"));
+        var existingUser = userRepository.findById(userId).orElseThrow(() ->
+                new ResourceNotFoundException("User not found"));
+
+        List<Task> taskList = existingUser.getTasks();
+        taskList.add(existingTask);
+        existingUser.setTasks(taskList);
+
+
+        userRepository.save(existingUser);
     }
 
     @Override

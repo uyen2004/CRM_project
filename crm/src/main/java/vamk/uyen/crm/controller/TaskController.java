@@ -39,6 +39,13 @@ public class TaskController {
 
     }
 
+    @PutMapping("/tasks/{taskId}/users/{userId}")
+    public ResponseEntity<String> setImplemeter(@PathVariable Long taskId, @PathVariable Long userId){
+        taskService.setImplementer(taskId, userId);
+
+        return new ResponseEntity<>("implementer added", HttpStatus.OK);
+    }
+
     @PutMapping("/tasks/{id}")
     public ResponseEntity<String> updateTask(@PathVariable Long id, @Valid @RequestBody TaskRequest taskDto) {
         taskService.updateTask(id, taskDto);

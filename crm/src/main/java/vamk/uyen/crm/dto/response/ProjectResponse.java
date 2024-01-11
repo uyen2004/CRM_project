@@ -7,18 +7,20 @@ import vamk.uyen.crm.dto.request.TaskRequest;
 
 import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
 public class ProjectResponse {
+    private String id;
     @NotEmpty
     private String name;
     @NotEmpty
-    private String startDate;
+    private Date startDate;
     @NotEmpty
-    private String endDate;
+    private Date endDate;
 
-    private List<TaskRequest> tasks = new ArrayList<>();
+    private List<TaskResponse> tasks;
 }

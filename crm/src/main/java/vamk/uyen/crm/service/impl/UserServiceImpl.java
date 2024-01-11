@@ -1,11 +1,16 @@
 package vamk.uyen.crm.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import vamk.uyen.crm.converter.Converter;
 import vamk.uyen.crm.dto.request.RegisterDto;
 import vamk.uyen.crm.dto.request.UserRequest;
+import vamk.uyen.crm.dto.response.PaginatedRespone;
 import vamk.uyen.crm.dto.response.UserResponse;
 import vamk.uyen.crm.entity.Role;
 import vamk.uyen.crm.entity.UserEntity;
@@ -34,10 +39,30 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserResponse> findAllUser() {
-        var userList = userRepository.findAll();
+    public PaginatedRespone<UserResponse> findAllUser(int pageNo, int pageSize, String sortBy, String sortDir) {
 
-        return converter.toList(userList, UserResponse.class);
+        // check sort direction
+        Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()
+                : Sort.by(sortBy).descending();
+
+        // create Pageable instance
+        Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
+
+        Page<UserEntity> userPage = userRepository.findAll(pageable);
+
+        // get content from page object
+        List<UserEntity> userList = userPage.getContent();
+        List<UserResponse> content = converter.toList(userList, UserResponse.class);
+
+        PaginatedRespone<UserResponse> userResponse = new PaginatedRespone<>();
+        userResponse.setContent(content);
+        userResponse.setPageNo(userPage.getNumber());
+        userResponse.setPageSize(userPage.getSize());
+        userResponse.setTotalElements(userPage.getTotalElements());
+        userResponse.setTotalPages(userPage.getTotalPages());
+        userResponse.setLast(userPage.isLast());
+
+        return userResponse;
     }
 
 

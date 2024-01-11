@@ -4,13 +4,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import vamk.uyen.crm.dto.request.RegisterDto;
 import vamk.uyen.crm.dto.request.UserRequest;
+import vamk.uyen.crm.dto.response.PaginatedRespone;
 import vamk.uyen.crm.dto.response.UserResponse;
 import vamk.uyen.crm.service.UserService;
+import vamk.uyen.crm.util.AppConstants;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -20,10 +20,15 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping()
-    public ResponseEntity<List<UserResponse>> findAllUser() {
-        var userList = userService.findAllUser();
+    public ResponseEntity<PaginatedRespone<UserResponse>> findAllUser(
+            @RequestParam(value = "pageNo", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
+            @RequestParam(value = "pageSize", defaultValue = AppConstants.DEFAULT_PAGE_SIZE, required = false) int pageSize,
+            @RequestParam(value = "sortBy", defaultValue = AppConstants.DEFAUT_SORT_BY, required = false) String sortBy,
+            @RequestParam(value = "sortDir", defaultValue = AppConstants.DEFAULT_SORT_DIRECTION, required = false) String sortDir
+    ) {
+        PaginatedRespone<UserResponse> userResponse = userService.findAllUser(pageNo, pageSize, sortBy, sortDir);
 
-        return new ResponseEntity<>(userList, HttpStatus.OK);
+        return new ResponseEntity<>(userResponse, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

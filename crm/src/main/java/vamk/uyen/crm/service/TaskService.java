@@ -14,6 +14,8 @@ public interface TaskService {
 
     void addTask(Long projectId, TaskRequest taskDto);
 
+    void setImplementer(Long taskId, Long userId);
+
     void updateTask(Long id, TaskRequest taskDto);
 
     void deleteTask(Long id);
