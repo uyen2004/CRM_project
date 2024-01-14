@@ -11,11 +11,11 @@ import org.springframework.http.HttpStatus;
 public class ApiException extends RuntimeException {
     private HttpStatus httpStatus;
     private String message;
-    private String test;
+    private String spec;
 
-    public ApiException(CommonErrorCode commonErrorCode, String test) {
+    public ApiException(CommonErrorCode commonErrorCode, String spec) {
         this.httpStatus = commonErrorCode.status();
-        this.message = commonErrorCode.message() + " " + test;
+        this.message = String.format("%s %s",commonErrorCode.message(), spec);
     }
 
 }
