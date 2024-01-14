@@ -76,18 +76,18 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public ProjectResponse findProjectById(Long id) {
-        var project = projectRepository.findById(id).orElseThrow(() -> new ApiException(ErrorCodeException.NOT_FOUND));
+        var project = projectRepository.findById(id).orElseThrow(() -> new ApiException(ErrorCodeException.NOT_FOUND, String.valueOf(id)));
         logger.info("Could not found id " +  id);
         return Converter.toModel(project, ProjectResponse.class);
     }
 
     @Override
     public void deleteProject(Long id) {
-        var project = projectRepository.findById(id).orElseThrow(() -> new ApiException(ErrorCodeException.NOT_FOUND));
+        var project = projectRepository.findById(id).orElseThrow(() -> new ApiException(ErrorCodeException.NOT_FOUND, String.valueOf(id)));
 
         for (Task task : project.getTasks().stream().toList()) {
             if (task.getStatus() != TaskStatus.DONE) {
-                throw new ApiException(ErrorCodeException.NOT_FOUND);
+                throw new ApiException(ErrorCodeException.NOT_FOUND, String.valueOf(id));
             }
         }
 

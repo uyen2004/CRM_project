@@ -66,13 +66,13 @@ public class JwtTokenProvider {
                     .parse(token);
             return true;
         } catch (MalformedJwtException e) {
-            throw new ApiException(HttpStatus.BAD_REQUEST, "Invalid JWT token");
+            throw new ApiException(HttpStatus.BAD_REQUEST, "Invalid JWT token", "");
         } catch (ExpiredJwtException e) {
-            throw new ApiException(HttpStatus.BAD_REQUEST, "JWT token is expired");
+            throw new ApiException(HttpStatus.BAD_REQUEST, "JWT token is expired", "");
         } catch (UnsupportedJwtException e) {
-            throw new ApiException(HttpStatus.BAD_REQUEST, "JWT token is unsupported");
+            throw new ApiException(HttpStatus.BAD_REQUEST, "JWT token is unsupported", "");
         } catch (IllegalArgumentException e) {
-            throw new ApiException(HttpStatus.BAD_REQUEST, "JWT claims string is empty");
+            throw new ApiException(HttpStatus.BAD_REQUEST, "JWT claims string is empty", "");
         }
     }
 }
