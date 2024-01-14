@@ -5,12 +5,17 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import vamk.uyen.crm.converter.Converter;
 import vamk.uyen.crm.dto.request.ProjectRequest;
 import vamk.uyen.crm.dto.response.PaginatedResponse;
 import vamk.uyen.crm.dto.response.ProjectResponse;
+import vamk.uyen.crm.dto.response.TaskResponse;
 import vamk.uyen.crm.entity.Project;
+import vamk.uyen.crm.entity.Task;
+import vamk.uyen.crm.entity.TaskStatus;
+import vamk.uyen.crm.exception.ApiException;
 import vamk.uyen.crm.exception.ResourceNotFoundException;
 import vamk.uyen.crm.repository.ProjectRepository;
 import vamk.uyen.crm.service.ProjectService;
@@ -79,8 +84,15 @@ public class ProjectServiceImpl implements ProjectService {
     public void deleteProject(Long id) {
         var project = projectRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Project not found"));
 
+        for(Task task : project.getTasks().stream().toList()){
+            if (task.getStatus() != TaskStatus.DONE){
+                throw new ApiException(HttpStatus.BAD_REQUEST, "Project cannot be deleted");
+            }
+        }
+
         projectRepository.delete(project);
     }
+
 }
 
 

@@ -21,7 +21,7 @@ public class TaskResponse {
     @NotEmpty
     private String endDate;
     @NotEmpty
-    private List<String> implementer;
+    private List<UserRequest> implementer;
     @NotEmpty
     private TaskStatus status;
 }

@@ -18,9 +18,9 @@ public class ProjectResponse {
     @NotEmpty
     private String name;
     @NotEmpty
-    private Date startDate;
+    private String startDate;
     @NotEmpty
-    private Date endDate;
+    private String endDate;
 
     private List<TaskResponse> tasks;
 }

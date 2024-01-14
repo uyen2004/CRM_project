@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import vamk.uyen.crm.dto.request.ProjectRequest;
 import vamk.uyen.crm.dto.response.PaginatedResponse;
@@ -54,7 +55,7 @@ public class ProjectController {
         return new ResponseEntity<>(project, HttpStatus.OK);
     }
 
-
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/projects/{id}")
     public ResponseEntity<String> deleteProject(@PathVariable Long id) {
         projectService.deleteProject(id);
