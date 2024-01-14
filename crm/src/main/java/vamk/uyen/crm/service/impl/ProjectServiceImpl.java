@@ -29,6 +29,7 @@ public class ProjectServiceImpl implements ProjectService {
     private static final Logger logger = LogManager.getLogger(ProjectServiceImpl.class);
 
     private final ProjectRepository projectRepository;
+
     @Override
     public void addProject(ProjectRequest projectDto) {
         projectRepository.save(Converter.toModel(projectDto, Project.class));
@@ -76,8 +77,13 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public ProjectResponse findProjectById(Long id) {
-        var project = projectRepository.findById(id).orElseThrow(() -> new ApiException(ErrorCodeException.NOT_FOUND, String.valueOf(id)));
-        logger.info("Could not found id " +  id);
+        var project = projectRepository.findById(id).orElseThrow(()
+                        -> {
+                    logger.info("Could not found id " + id);
+                    return new ApiException(ErrorCodeException.NOT_FOUND, String.valueOf(id));
+                }
+        );
+
         return Converter.toModel(project, ProjectResponse.class);
     }
 
