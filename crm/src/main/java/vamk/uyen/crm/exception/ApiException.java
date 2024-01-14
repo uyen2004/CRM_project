@@ -12,9 +12,9 @@ public class ApiException extends RuntimeException {
     private HttpStatus httpStatus;
     private String message;
 
-    public ApiException(String msg, HttpStatus httpStatus, String message) {
-        super(msg);
+    public ApiException(CommonErrorCode commonErrorCode) {
         this.httpStatus = httpStatus;
         this.message = message;
     }
+
 }

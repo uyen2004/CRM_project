@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
-@Component
 public class Converter {
     public static <T> T toModel(final Object obj, final Class<T> zClass) {
         ModelMapper modelMapper = new ModelMapper();

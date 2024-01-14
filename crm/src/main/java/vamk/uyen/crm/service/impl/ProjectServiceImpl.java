@@ -1,21 +1,22 @@
 package vamk.uyen.crm.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import vamk.uyen.crm.converter.Converter;
 import vamk.uyen.crm.dto.request.ProjectRequest;
 import vamk.uyen.crm.dto.response.PaginatedResponse;
 import vamk.uyen.crm.dto.response.ProjectResponse;
-import vamk.uyen.crm.dto.response.TaskResponse;
 import vamk.uyen.crm.entity.Project;
 import vamk.uyen.crm.entity.Task;
 import vamk.uyen.crm.entity.TaskStatus;
 import vamk.uyen.crm.exception.ApiException;
+import vamk.uyen.crm.exception.ErrorCodeException;
 import vamk.uyen.crm.exception.ResourceNotFoundException;
 import vamk.uyen.crm.repository.ProjectRepository;
 import vamk.uyen.crm.service.ProjectService;
@@ -25,19 +26,19 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class ProjectServiceImpl implements ProjectService {
-    private final ProjectRepository projectRepository;
-    private final Converter converter;
+    private static final Logger logger = LogManager.getLogger(ProjectServiceImpl.class);
 
+    private final ProjectRepository projectRepository;
     @Override
     public void addProject(ProjectRequest projectDto) {
-        projectRepository.save(converter.toModel(projectDto, Project.class));
+        projectRepository.save(Converter.toModel(projectDto, Project.class));
     }
 
     @Override
     public void updateProject(Long id, ProjectRequest projectDto) {
         var project = projectRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Project not found"));
 
-        var updatedProject = converter.toModel(projectDto, Project.class);
+        var updatedProject = Converter.toModel(projectDto, Project.class);
 
         project.setName(updatedProject.getName());
         project.setStartDate(updatedProject.getStartDate());
@@ -60,7 +61,7 @@ public class ProjectServiceImpl implements ProjectService {
 
         // get content from page object
         List<Project> projectList = projectPage.getContent();
-        List<ProjectResponse> content = converter.toList(projectList, ProjectResponse.class);
+        List<ProjectResponse> content = Converter.toList(projectList, ProjectResponse.class);
 
         PaginatedResponse<ProjectResponse> projectResponse = new PaginatedResponse<>();
         projectResponse.setContent(content);
@@ -75,18 +76,18 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public ProjectResponse findProjectById(Long id) {
-        var project = projectRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Project not found"));
-
-        return converter.toModel(project, ProjectResponse.class);
+        var project = projectRepository.findById(id).orElseThrow(() -> new ApiException(ErrorCodeException.NOT_FOUND));
+        logger.info("Could not found id " +  id);
+        return Converter.toModel(project, ProjectResponse.class);
     }
 
     @Override
     public void deleteProject(Long id) {
-        var project = projectRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Project not found"));
+        var project = projectRepository.findById(id).orElseThrow(() -> new ApiException(ErrorCodeException.NOT_FOUND));
 
-        for(Task task : project.getTasks().stream().toList()){
-            if (task.getStatus() != TaskStatus.DONE){
-                throw new ApiException(HttpStatus.BAD_REQUEST, "Project cannot be deleted");
+        for (Task task : project.getTasks().stream().toList()) {
+            if (task.getStatus() != TaskStatus.DONE) {
+                throw new ApiException(ErrorCodeException.NOT_FOUND);
             }
         }
 
