@@ -22,6 +22,17 @@ public class ControllerExceptionHandler {
         return new ResponseEntity<ErrorMessage>(message,HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(ApiException.class)
+    public ResponseEntity<ErrorMessage> apiException(ApiException ex, WebRequest request) {
+        ErrorMessage message = new ErrorMessage(
+                Integer.parseInt(String.valueOf(ex.getHttpStatus().value())),
+                new Date(),
+                ex.getMessage(),
+                request.getDescription(false));
+
+        return new ResponseEntity<ErrorMessage>(message,HttpStatus.NOT_FOUND);
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorMessage> globalExceptionHandler(Exception ex, WebRequest request) {
         ErrorMessage message = new ErrorMessage(

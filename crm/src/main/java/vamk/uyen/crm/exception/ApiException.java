@@ -13,8 +13,8 @@ public class ApiException extends RuntimeException {
     private String message;
 
     public ApiException(CommonErrorCode commonErrorCode) {
-        this.httpStatus = httpStatus;
-        this.message = message;
+        this.httpStatus = commonErrorCode.status();
+        this.message = commonErrorCode.message();
     }
 
 }
