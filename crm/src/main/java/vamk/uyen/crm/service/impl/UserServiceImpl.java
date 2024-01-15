@@ -1,6 +1,8 @@
 package vamk.uyen.crm.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -11,7 +13,8 @@ import vamk.uyen.crm.dto.request.UserRequest;
 import vamk.uyen.crm.dto.response.PaginatedResponse;
 import vamk.uyen.crm.dto.response.UserResponse;
 import vamk.uyen.crm.entity.UserEntity;
-import vamk.uyen.crm.exception.ResourceNotFoundException;
+import vamk.uyen.crm.exception.ApiException;
+import vamk.uyen.crm.exception.ErrorCodeException;
 import vamk.uyen.crm.repository.UserRepository;
 import vamk.uyen.crm.service.UserService;
 
@@ -22,13 +25,17 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-    private final Converter converter;
+    private static final Logger logger = LogManager.getLogger(UserServiceImpl.class);
 
     @Override
     public UserResponse findUserById(Long id) {
-        var userEntity = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        var userEntity = userRepository.findById(id).orElseThrow(()
+                -> {
+            logger.error("Could not found user id " + id);
+            throw new ApiException(ErrorCodeException.NOT_FOUND, String.valueOf(id));
+        });
 
-        return converter.toModel(userEntity, UserResponse.class);
+        return Converter.toModel(userEntity, UserResponse.class);
     }
 
     @Override
@@ -45,7 +52,7 @@ public class UserServiceImpl implements UserService {
 
         // get content from page object
         List<UserEntity> userList = userPage.getContent();
-        List<UserResponse> content = converter.toList(userList, UserResponse.class);
+        List<UserResponse> content = Converter.toList(userList, UserResponse.class);
 
         PaginatedResponse<UserResponse> userResponse = new PaginatedResponse<>();
         userResponse.setContent(content);
@@ -59,12 +66,16 @@ public class UserServiceImpl implements UserService {
     }
 
 
-
     @Override
     public void updateUser(Long id, UserRequest userDto) {
-        var userEntity = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        var userEntity = userRepository.findById(id).orElseThrow(()
+                -> {
+            logger.error("Could not found user id " + id);
+            throw new ApiException(ErrorCodeException.NOT_FOUND, String.valueOf(id));
+        });
+
         if (userEntity.getEmail().equalsIgnoreCase(userDto.getEmail())) {
-            var updatedUser = converter.toModel(userDto, UserEntity.class);
+            var updatedUser = Converter.toModel(userDto, UserEntity.class);
 
             userEntity.setUsername(updatedUser.getUsername());
             userEntity.setPhoneNum(updatedUser.getPhoneNum());
@@ -77,7 +88,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUserById(Long id) {
-        var userEntity = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        var userEntity = userRepository.findById(id).orElseThrow(()
+                -> {
+            logger.error("Could not found user id " + id);
+            throw new ApiException(ErrorCodeException.NOT_FOUND, String.valueOf(id));
+        });
 
         userRepository.delete(userEntity);
     }

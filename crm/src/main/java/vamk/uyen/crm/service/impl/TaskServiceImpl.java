@@ -1,6 +1,8 @@
 package vamk.uyen.crm.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -12,14 +14,13 @@ import vamk.uyen.crm.dto.response.PaginatedResponse;
 import vamk.uyen.crm.dto.response.TaskResponse;
 import vamk.uyen.crm.entity.Task;
 import vamk.uyen.crm.entity.TaskStatus;
-import vamk.uyen.crm.entity.UserEntity;
-import vamk.uyen.crm.exception.ResourceNotFoundException;
+import vamk.uyen.crm.exception.ApiException;
+import vamk.uyen.crm.exception.ErrorCodeException;
 import vamk.uyen.crm.repository.ProjectRepository;
 import vamk.uyen.crm.repository.TaskRepository;
 import vamk.uyen.crm.repository.UserRepository;
 import vamk.uyen.crm.service.TaskService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -28,8 +29,8 @@ public class TaskServiceImpl implements TaskService {
 
     private final TaskRepository taskRepository;
     private final ProjectRepository projectRepository;
-    private final Converter converter;
     private final UserRepository userRepository;
+    private static final Logger logger = LogManager.getLogger(TaskServiceImpl.class);
 
     @Override
     public PaginatedResponse<TaskResponse> findAllTasks(int pageNo, int pageSize, String sortBy, String sortDir) {
@@ -45,7 +46,7 @@ public class TaskServiceImpl implements TaskService {
 
         // get content from page object
         List<Task> taskList = taskPage.getContent();
-        List<TaskResponse> content = converter.toList(taskList, TaskResponse.class);
+        List<TaskResponse> content = Converter.toList(taskList, TaskResponse.class);
 
         PaginatedResponse<TaskResponse> taskResponse = new PaginatedResponse<>();
         taskResponse.setContent(content);
@@ -60,18 +61,25 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public TaskResponse findTaskById(Long id) {
-        var task = taskRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Task not found"));
+        var task = taskRepository.findById(id).orElseThrow(()
+                -> {
+            logger.error("Could not found task id " + id);
+            throw new ApiException(ErrorCodeException.NOT_FOUND, String.valueOf(id));
+        });
 
         return Converter.toModel(task, TaskResponse.class);
     }
 
     @Override
     public void addTask(Long projectId, TaskRequest taskDto) {
-        var existingProject = projectRepository.findById(projectId).orElseThrow(() ->
-                new ResourceNotFoundException("Project not found"));
+        var existingProject = projectRepository.findById(projectId).orElseThrow(()
+                -> {
+            logger.error("Could not found project id " + projectId);
+            throw new ApiException(ErrorCodeException.NOT_FOUND, String.valueOf(projectId));
+        });
 
         var taskList = existingProject.getTasks();
-        var addedTask = converter.toModel(taskDto, Task.class);
+        var addedTask = Converter.toModel(taskDto, Task.class);
         addedTask.setStatus(TaskStatus.NOT_STARTED);
 
         taskList.add(addedTask);
@@ -85,10 +93,17 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public void setImplementer(Long taskId, Long userId) {
-        var existingTask = taskRepository.findById(taskId).orElseThrow(() ->
-                new ResourceNotFoundException("Task not found"));
-        var existingUser = userRepository.findById(userId).orElseThrow(() ->
-                new ResourceNotFoundException("User not found"));
+        var existingTask = taskRepository.findById(taskId).orElseThrow(()
+                -> {
+            logger.error("Could not found task id " + taskId);
+            throw new ApiException(ErrorCodeException.NOT_FOUND, String.valueOf(taskId));
+        });
+
+        var existingUser = userRepository.findById(userId).orElseThrow(()
+                ->{
+            logger.error("Could not found user id " + userId);
+            throw new ApiException(ErrorCodeException.NOT_FOUND, String.valueOf(userId));
+        });
 
         List<Task> taskList = existingUser.getTasks();
         taskList.add(existingTask);
@@ -100,9 +115,13 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public void updateTask(Long id, TaskRequest taskDto) {
-        var existingTask = taskRepository.findById(id).orElseThrow(() ->
-                new ResourceNotFoundException("Task not found"));
-        var addedtask = converter.toModel(taskDto, Task.class);
+        var existingTask = taskRepository.findById(id).orElseThrow(()
+                ->{
+            logger.error("Could not found task id " + id);
+            throw new ApiException(ErrorCodeException.NOT_FOUND, String.valueOf(id));
+       });
+
+        var addedtask = Converter.toModel(taskDto, Task.class);
         existingTask.setName(addedtask.getName());
         existingTask.setStartDate(addedtask.getStartDate());
         existingTask.setEndDate(addedtask.getEndDate());
@@ -113,7 +132,11 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public void deleteTask(Long id) {
-        var task = taskRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Task not found"));
+        var task = taskRepository.findById(id).orElseThrow(()
+                -> {
+            logger.error("Could not found task id " + id);
+            throw new ApiException(ErrorCodeException.NOT_FOUND, String.valueOf(id));
+        });
         taskRepository.delete(task);
     }
 }

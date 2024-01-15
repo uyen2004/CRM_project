@@ -17,7 +17,6 @@ import vamk.uyen.crm.entity.Task;
 import vamk.uyen.crm.entity.TaskStatus;
 import vamk.uyen.crm.exception.ApiException;
 import vamk.uyen.crm.exception.ErrorCodeException;
-import vamk.uyen.crm.exception.ResourceNotFoundException;
 import vamk.uyen.crm.repository.ProjectRepository;
 import vamk.uyen.crm.service.ProjectService;
 
@@ -37,7 +36,12 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public void updateProject(Long id, ProjectRequest projectDto) {
-        var project = projectRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Project not found"));
+        var project = projectRepository.findById(id).orElseThrow(()
+                        -> {
+                    logger.error("Could not found project id " + id);
+                    throw new ApiException(ErrorCodeException.NOT_FOUND, String.valueOf(id));
+                }
+        );
 
         var updatedProject = Converter.toModel(projectDto, Project.class);
 
@@ -79,8 +83,8 @@ public class ProjectServiceImpl implements ProjectService {
     public ProjectResponse findProjectById(Long id) {
         var project = projectRepository.findById(id).orElseThrow(()
                         -> {
-                    logger.info("Could not found id " + id);
-                    return new ApiException(ErrorCodeException.NOT_FOUND, String.valueOf(id));
+                    logger.error("Could not found project id " + id);
+                    throw new ApiException(ErrorCodeException.NOT_FOUND, String.valueOf(id));
                 }
         );
 
@@ -89,7 +93,12 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public void deleteProject(Long id) {
-        var project = projectRepository.findById(id).orElseThrow(() -> new ApiException(ErrorCodeException.NOT_FOUND, String.valueOf(id)));
+        var project = projectRepository.findById(id).orElseThrow(()
+                        -> {
+                    logger.error("Could not found project id " + id);
+                    throw new ApiException(ErrorCodeException.NOT_FOUND, String.valueOf(id));
+                }
+        );
 
         for (Task task : project.getTasks().stream().toList()) {
             if (task.getStatus() != TaskStatus.DONE) {

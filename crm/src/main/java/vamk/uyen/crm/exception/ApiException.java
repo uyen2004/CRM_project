@@ -15,7 +15,7 @@ public class ApiException extends RuntimeException {
 
     public ApiException(CommonErrorCode commonErrorCode, String spec) {
         this.httpStatus = commonErrorCode.status();
-        this.message = String.format("%s %s",commonErrorCode.message(), spec);
+        this.message = String.format("%s %s", spec,commonErrorCode.message());
     }
 
 }

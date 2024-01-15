@@ -4,8 +4,8 @@ import org.springframework.http.HttpStatus;
 
 public enum ErrorCodeException implements CommonErrorCode {
 
-    SUCCESS(HttpStatus.OK, "Success"),
-    NOT_FOUND(HttpStatus.NOT_FOUND, "Could not found");
+    BAD_REQUEST(HttpStatus.BAD_REQUEST, "bad request"),
+    NOT_FOUND(HttpStatus.NOT_FOUND, "not found");
 
     private final HttpStatus status;
     private final String message;
