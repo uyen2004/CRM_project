@@ -20,6 +20,9 @@ import vamk.uyen.crm.repository.ProjectRepository;
 import vamk.uyen.crm.repository.TaskRepository;
 import vamk.uyen.crm.repository.UserRepository;
 import vamk.uyen.crm.service.TaskService;
+import vamk.uyen.crm.specificationsearch.SearchCriteria;
+import vamk.uyen.crm.specificationsearch.TaskSearchRequest;
+import vamk.uyen.crm.specificationsearch.TaskSpecificationBuilder;
 
 import java.util.List;
 
@@ -100,7 +103,7 @@ public class TaskServiceImpl implements TaskService {
         });
 
         var existingUser = userRepository.findById(userId).orElseThrow(()
-                ->{
+                -> {
             logger.error("Could not found user id " + userId);
             throw new ApiException(ErrorCodeException.NOT_FOUND, String.valueOf(userId));
         });
@@ -116,10 +119,10 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public void updateTask(Long id, TaskRequest taskDto) {
         var existingTask = taskRepository.findById(id).orElseThrow(()
-                ->{
+                -> {
             logger.error("Could not found task id " + id);
             throw new ApiException(ErrorCodeException.NOT_FOUND, String.valueOf(id));
-       });
+        });
 
         var addedtask = Converter.toModel(taskDto, Task.class);
         existingTask.setName(addedtask.getName());
@@ -139,4 +142,42 @@ public class TaskServiceImpl implements TaskService {
         });
         taskRepository.delete(task);
     }
+
+    @Override
+    public PaginatedResponse<TaskResponse> searchTasks(int pageNo, int pageSize, String sortBy, String sortDir,
+                                                       TaskSearchRequest searchRequest) {
+
+        TaskSpecificationBuilder builder = new TaskSpecificationBuilder();
+        List<SearchCriteria> criteriaList = searchRequest.getSearchCriteriaList();
+
+        if (criteriaList != null) {
+            criteriaList.forEach(x -> {
+                x.setDataOption(searchRequest.getDataOption());
+                builder.with(x);
+            });
+        }
+
+
+        Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()
+                : Sort.by(sortBy).descending();
+
+        Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
+
+        Page<Task> taskPage = taskRepository.findAll(builder.build(), pageable);
+
+        List<Task> taskList = taskPage.getContent();
+        List<TaskResponse> content = Converter.toList(taskList, TaskResponse.class);
+
+        PaginatedResponse<TaskResponse> taskResponse = new PaginatedResponse<>();
+        taskResponse.setContent(content);
+        taskResponse.setPageNo(taskPage.getNumber());
+        taskResponse.setPageSize(taskPage.getSize());
+        taskResponse.setTotalElements(taskPage.getTotalElements());
+        taskResponse.setTotalPages(taskPage.getTotalPages());
+        taskResponse.setLast(taskPage.isLast());
+
+        return taskResponse;
+    }
+
+
 }

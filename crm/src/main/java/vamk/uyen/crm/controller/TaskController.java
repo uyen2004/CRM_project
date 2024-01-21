@@ -8,6 +8,7 @@ import vamk.uyen.crm.dto.request.TaskRequest;
 import vamk.uyen.crm.dto.response.PaginatedResponse;
 import vamk.uyen.crm.dto.response.TaskResponse;
 import vamk.uyen.crm.service.TaskService;
+import vamk.uyen.crm.specificationsearch.TaskSearchRequest;
 import vamk.uyen.crm.util.AppConstants;
 
 import javax.validation.Valid;
@@ -65,4 +66,18 @@ public class TaskController {
 
         return new ResponseEntity<>("deleted", HttpStatus.OK);
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<PaginatedResponse<TaskResponse>> findAllTasks(
+            @RequestParam(name = "pageNo", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
+            @RequestParam(name = "pageSize", defaultValue = AppConstants.DEFAULT_PAGE_SIZE, required = false) int pageSize,
+            @RequestParam(name = "sortBy", defaultValue = AppConstants.DEFAUT_SORT_BY, required = false) String sortBy,
+            @RequestParam(name = "sortDir", defaultValue = AppConstants.DEFAULT_SORT_DIRECTION, required = false) String sortDir,
+            @RequestBody TaskSearchRequest searchRequest) {
+
+        PaginatedResponse<TaskResponse> taskResponse = taskService.searchTasks(pageNo, pageSize, sortBy, sortDir, searchRequest);
+
+        return new ResponseEntity<>(taskResponse, HttpStatus.OK);
+    }
+
 }
