@@ -37,13 +37,12 @@ public class TaskController {
         return new ResponseEntity<>(task, HttpStatus.OK);
     }
 
-    @PostMapping("/projects/{projectId}/tasks")
-    public ResponseEntity<String> addTask(@PathVariable Long projectId, @Valid @RequestBody TaskRequest taskDto) {
-        taskService.addTask(projectId, taskDto);
-
-        return new ResponseEntity<>("successfull", HttpStatus.CREATED);
-
+    @PostMapping("/projects/{projectId}/users/{userId}/tasks")
+    public ResponseEntity<String> addTask(@PathVariable Long projectId, @PathVariable Long userId, @Valid @RequestBody TaskRequest taskDto) {
+        taskService.addTask(projectId, taskDto, userId);
+        return new ResponseEntity<>("Successfully added task for user " + userId + " in project " + projectId, HttpStatus.CREATED);
     }
+
 
     @PutMapping("/tasks/{taskId}/users/{userId}")
     public ResponseEntity<String> setImplemeter(@PathVariable Long taskId, @PathVariable Long userId) {

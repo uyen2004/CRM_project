@@ -38,6 +38,11 @@ public class UserController {
         return new ResponseEntity<>(userDto, HttpStatus.OK);
     }
 
+    @PostMapping("/role/{roleId}")
+    public ResponseEntity<String> addUser(UserRequest userRequest, @PathVariable Long roleId){
+        userService.addUser(userRequest, roleId);
+        return new ResponseEntity<>("Successfully added new user ", HttpStatus.OK);
+    }
 
     @PutMapping("/{id}")
     public ResponseEntity<String> updateUser(@PathVariable Long id, @Valid @RequestBody UserRequest userDto) {

@@ -36,21 +36,27 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public void updateProject(Long id, ProjectRequest projectDto) {
-        var project = projectRepository.findById(id).orElseThrow(()
-                        -> {
-                    logger.error("Could not found project id " + id);
-                    throw new ApiException(ErrorCodeException.NOT_FOUND, String.valueOf(id));
-                }
-        );
+        var project = projectRepository.findById(id).orElseThrow(() -> {
+            logger.error("Could not find project id " + id);
+            throw new ApiException(ErrorCodeException.NOT_FOUND, String.valueOf(id));
+        });
 
         var updatedProject = Converter.toModel(projectDto, Project.class);
 
-        project.setName(updatedProject.getName());
-        project.setStartDate(updatedProject.getStartDate());
-        project.setEndDate(updatedProject.getEndDate());
+        // Update project properties if they are not null in the request
+        if (projectDto.getName() != null) {
+            project.setName(updatedProject.getName());
+        }
+        if (projectDto.getStartDate() != null) {
+            project.setStartDate(updatedProject.getStartDate());
+        }
+        if (projectDto.getEndDate() != null) {
+            project.setEndDate(updatedProject.getEndDate());
+        }
 
         projectRepository.save(project);
     }
+
 
     @Override
     public PaginatedResponse<ProjectResponse> findAllProjects(int pageNo, int pageSize, String sortBy, String sortDir) {

@@ -7,6 +7,8 @@ import vamk.uyen.crm.dto.response.UserResponse;
 public interface UserService {
     UserResponse findUserById(Long id);
 
+    void addUser(UserRequest userRequest, Long roleId);
+
     PaginatedResponse<UserResponse> findAllUser(int pageNo, int pageSize, String sortBy, String sortDir);
 
     void updateUser(Long id, UserRequest userDto);

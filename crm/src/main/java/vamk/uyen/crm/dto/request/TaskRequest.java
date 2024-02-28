@@ -12,11 +12,11 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 public class TaskRequest {
-    @NotEmpty
+
     private String name;
-    @NotEmpty
+
     private String startDate;
-    @NotEmpty
+
     private String endDate;
 
     private TaskStatus status;

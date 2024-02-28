@@ -71,25 +71,32 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public void addTask(Long projectId, TaskRequest taskDto) {
-        var existingProject = projectRepository.findById(projectId).orElseThrow(()
-                -> {
-            logger.error("Could not found project id " + projectId);
+    public void addTask(Long projectId, TaskRequest taskDto, Long userId) {
+        var existingProject = projectRepository.findById(projectId).orElseThrow(() -> {
+            logger.error("Could not find project with id " + projectId);
             throw new ApiException(ErrorCodeException.NOT_FOUND, String.valueOf(projectId));
         });
 
-        var taskList = existingProject.getTasks();
+        var existingUser = userRepository.findById(userId).orElseThrow(() -> {
+            logger.error("Could not find user with id " + userId);
+            throw new ApiException(ErrorCodeException.NOT_FOUND, String.valueOf(userId));
+        });
+
         var addedTask = Converter.toModel(taskDto, Task.class);
         addedTask.setStatus(TaskStatus.NOT_STARTED);
 
-        taskList.add(addedTask);
-        existingProject.setTasks(taskList);
-        addedTask.setProject(existingProject);
+        List<Task> userTaskList = existingUser.getTasks();
+        userTaskList.add(addedTask);
+        existingUser.setTasks(userTaskList);
 
+        List<Task> projectTaskList = existingProject.getTasks();
+        projectTaskList.add(addedTask);
+        existingProject.setTasks(projectTaskList);
 
         taskRepository.save(addedTask);
-        projectRepository.save(existingProject);
     }
+
+
 
     @Override
     public void setImplementer(Long taskId, Long userId) {
@@ -109,26 +116,34 @@ public class TaskServiceImpl implements TaskService {
         taskList.add(existingTask);
         existingUser.setTasks(taskList);
 
-
         userRepository.save(existingUser);
     }
 
     @Override
     public void updateTask(Long id, TaskRequest taskDto) {
-        var existingTask = taskRepository.findById(id).orElseThrow(()
-                ->{
-            logger.error("Could not found task id " + id);
+        var existingTask = taskRepository.findById(id).orElseThrow(() -> {
+            logger.error("Could not find task id " + id);
             throw new ApiException(ErrorCodeException.NOT_FOUND, String.valueOf(id));
-       });
+        });
 
-        var addedtask = Converter.toModel(taskDto, Task.class);
-        existingTask.setName(addedtask.getName());
-        existingTask.setStartDate(addedtask.getStartDate());
-        existingTask.setEndDate(addedtask.getEndDate());
-        existingTask.setStatus(addedtask.getStatus());
+        var updatedTask = Converter.toModel(taskDto, Task.class);
+
+        if (taskDto.getName() != null) {
+            existingTask.setName(updatedTask.getName());
+        }
+        if (taskDto.getStartDate() != null) {
+            existingTask.setStartDate(updatedTask.getStartDate());
+        }
+        if (taskDto.getEndDate() != null) {
+            existingTask.setEndDate(updatedTask.getEndDate());
+        }
+        if (taskDto.getStatus() != null) {
+            existingTask.setStatus(updatedTask.getStatus());
+        }
 
         taskRepository.save(existingTask);
     }
+
 
     @Override
     public void deleteTask(Long id) {

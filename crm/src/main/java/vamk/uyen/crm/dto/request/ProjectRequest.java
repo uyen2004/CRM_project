@@ -13,11 +13,11 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 public class ProjectRequest {
-    @NotEmpty
+
     private String name;
-    @NotEmpty
+
     private String startDate;
-    @NotEmpty
+
     private String endDate;
 
     private List<TaskRequest> tasks;

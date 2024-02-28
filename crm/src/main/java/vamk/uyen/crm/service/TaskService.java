@@ -13,7 +13,7 @@ public interface TaskService {
 
     TaskResponse findTaskById(Long id);
 
-    void addTask(Long projectId, TaskRequest taskDto);
+    void addTask(Long projectId, TaskRequest taskDto, Long userId);
 
     void setImplementer(Long taskId, Long userId);
 
