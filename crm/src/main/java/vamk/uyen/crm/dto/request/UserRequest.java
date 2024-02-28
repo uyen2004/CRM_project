@@ -1,5 +1,6 @@
 package vamk.uyen.crm.dto.request;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,6 +15,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 public class UserRequest {
+    @JsonProperty("username")
     private String username;
 
     private String email;

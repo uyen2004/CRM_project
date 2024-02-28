@@ -39,7 +39,7 @@ public class UserController {
     }
 
     @PostMapping("/role/{roleId}")
-    public ResponseEntity<String> addUser(UserRequest userRequest, @PathVariable Long roleId){
+    public ResponseEntity<String> addUser(@RequestBody UserRequest userRequest, @PathVariable Long roleId){
         userService.addUser(userRequest, roleId);
         return new ResponseEntity<>("Successfully added new user ", HttpStatus.OK);
     }
