@@ -103,7 +103,6 @@ public class UserServiceImpl implements UserService {
 
         if (userEntity.getEmail().equalsIgnoreCase(userDto.getEmail())) {
             var updatedUser = Converter.toModel(userDto, UserEntity.class);
-
             userEntity.setUsername(updatedUser.getUsername());
             userEntity.setPhoneNum(updatedUser.getPhoneNum());
             userEntity.setRoles(updatedUser.getRoles());
