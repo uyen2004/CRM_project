@@ -13,7 +13,6 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 public class ProjectRequest {
-
     private String name;
 
     private String startDate;

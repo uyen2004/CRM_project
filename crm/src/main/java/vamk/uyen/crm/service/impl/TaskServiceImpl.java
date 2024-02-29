@@ -14,6 +14,7 @@ import vamk.uyen.crm.dto.response.PaginatedResponse;
 import vamk.uyen.crm.dto.response.TaskResponse;
 import vamk.uyen.crm.entity.Task;
 import vamk.uyen.crm.entity.TaskStatus;
+import vamk.uyen.crm.entity.UserEntity;
 import vamk.uyen.crm.exception.ApiException;
 import vamk.uyen.crm.exception.ErrorCodeException;
 import vamk.uyen.crm.repository.ProjectRepository;
@@ -84,6 +85,7 @@ public class TaskServiceImpl implements TaskService {
 
         var addedTask = Converter.toModel(taskDto, Task.class);
         addedTask.setStatus(TaskStatus.NOT_STARTED);
+        addedTask.setProject(existingProject);
 
         List<Task> userTaskList = existingUser.getTasks();
         userTaskList.add(addedTask);
@@ -94,6 +96,7 @@ public class TaskServiceImpl implements TaskService {
         existingProject.setTasks(projectTaskList);
 
         taskRepository.save(addedTask);
+
     }
 
 
@@ -147,11 +150,24 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public void deleteTask(Long id) {
-        var task = taskRepository.findById(id).orElseThrow(()
-                -> {
+        // Find the task by id
+        var task = taskRepository.findById(id).orElseThrow(() ->
+        {
             logger.error("Could not found task id " + id);
             throw new ApiException(ErrorCodeException.NOT_FOUND, String.valueOf(id));
         });
+
+        // Remove the association from the implementers' side
+        for (UserEntity implementer : task.getImplementers()) {
+            implementer.getTasks().remove(task);
+            userRepository.save(implementer);
+        }
+
+        // Clear the implementers and save the task to ensure changes are flushed
+        task.getImplementers().clear();
+        taskRepository.saveAndFlush(task);
+
         taskRepository.delete(task);
     }
+
 }

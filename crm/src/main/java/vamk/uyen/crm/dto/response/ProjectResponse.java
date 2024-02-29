@@ -14,7 +14,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 public class ProjectResponse {
-    private String id;
+    private Long id;
     @NotEmpty
     private String name;
     @NotEmpty

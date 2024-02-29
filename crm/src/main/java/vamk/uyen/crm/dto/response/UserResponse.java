@@ -15,7 +15,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 public class UserResponse {
-    private String id;
+    private Long id;
     @NotEmpty
     private String username;
     @Email

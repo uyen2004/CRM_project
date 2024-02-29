@@ -9,4 +9,5 @@ import lombok.Setter;
 @NoArgsConstructor
 public class RoleRequest {
     private String name;
+    private String description;
 }

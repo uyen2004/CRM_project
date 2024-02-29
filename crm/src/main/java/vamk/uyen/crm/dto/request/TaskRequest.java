@@ -12,7 +12,6 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 public class TaskRequest {
-
     private String name;
 
     private String startDate;

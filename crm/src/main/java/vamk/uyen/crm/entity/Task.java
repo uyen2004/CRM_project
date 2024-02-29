@@ -32,8 +32,9 @@ public class Task {
     @Enumerated(EnumType.STRING)
     private TaskStatus status;
 
-    @ManyToMany(mappedBy = "tasks", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "tasks", cascade = CascadeType.PERSIST)
     private List<UserEntity> implementers;
+
 
 
 }
