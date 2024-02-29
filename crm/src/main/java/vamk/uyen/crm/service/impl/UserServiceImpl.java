@@ -95,18 +95,29 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateUser(Long id, UserRequest userDto) {
+
         var userEntity = userRepository.findById(id).orElseThrow(()
                 -> {
             logger.error("Could not found user id " + id);
             throw new ApiException(ErrorCodeException.NOT_FOUND, String.valueOf(id));
         });
 
-        if (userEntity.getEmail().equalsIgnoreCase(userDto.getEmail())) {
+//        if (userEntity.getEmail().equalsIgnoreCase(userDto.getEmail())) {
             var updatedUser = Converter.toModel(userDto, UserEntity.class);
-            userEntity.setUsername(updatedUser.getUsername());
-            userEntity.setPhoneNum(updatedUser.getPhoneNum());
-            userEntity.setRoles(updatedUser.getRoles());
-        }
+            if(updatedUser.getUsername() != null) {
+                userEntity.setUsername(updatedUser.getUsername());
+            }
+            if(updatedUser.getPhoneNum() != null) {
+                userEntity.setPhoneNum(updatedUser.getPhoneNum());
+            }
+
+            if(updatedUser.getRoles() != null) {
+                userEntity.setRoles(updatedUser.getRoles());
+            }
+
+            logger.info(updatedUser.getPhoneNum());
+//        }
+
 
         userRepository.save(userEntity);
 
