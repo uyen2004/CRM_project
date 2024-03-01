@@ -5,6 +5,8 @@ import vamk.uyen.crm.dto.request.ProjectRequest;
 import vamk.uyen.crm.dto.response.PaginatedResponse;
 import vamk.uyen.crm.dto.response.ProjectResponse;
 
+import java.util.List;
+
 @Service
 public interface ProjectService {
     void addProject(ProjectRequest projectDto);
@@ -16,5 +18,7 @@ public interface ProjectService {
     ProjectResponse findProjectById(Long id);
 
     void deleteProject(Long id);
+
+    List<ProjectResponse> getProjects(Long originatorId);
 
 }
