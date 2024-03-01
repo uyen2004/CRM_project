@@ -23,4 +23,6 @@ public class ProjectResponse {
     private String endDate;
 
     private List<TaskResponse> tasks;
+
+    private UserResponse originator;
 }

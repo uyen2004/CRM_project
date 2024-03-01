@@ -9,7 +9,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import vamk.uyen.crm.converter.Converter;
-import vamk.uyen.crm.dto.request.RoleRequest;
 import vamk.uyen.crm.dto.request.UserRequest;
 import vamk.uyen.crm.dto.response.PaginatedResponse;
 import vamk.uyen.crm.dto.response.UserResponse;
@@ -21,10 +20,7 @@ import vamk.uyen.crm.repository.RoleRepository;
 import vamk.uyen.crm.repository.UserRepository;
 import vamk.uyen.crm.service.UserService;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -130,4 +126,11 @@ public class UserServiceImpl implements UserService {
 
         userRepository.delete(userEntity);
     }
+
+    @Override
+    public UserEntity getUser(String email) {
+        Optional<UserEntity> userOptional = userRepository.findByEmail(email);
+        return userOptional.orElse(null);
+    }
+
 }

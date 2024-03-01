@@ -3,6 +3,9 @@ package vamk.uyen.crm.service;
 import vamk.uyen.crm.dto.request.UserRequest;
 import vamk.uyen.crm.dto.response.PaginatedResponse;
 import vamk.uyen.crm.dto.response.UserResponse;
+import vamk.uyen.crm.entity.UserEntity;
+
+import java.util.Optional;
 
 public interface UserService {
     UserResponse findUserById(Long id);
@@ -14,4 +17,6 @@ public interface UserService {
     void updateUser(Long id, UserRequest userDto);
 
     void deleteUserById(Long id);
+
+    UserEntity getUser(String email);
 }

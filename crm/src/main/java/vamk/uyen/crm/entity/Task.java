@@ -35,6 +35,4 @@ public class Task {
     @ManyToMany(mappedBy = "tasks", cascade = CascadeType.PERSIST)
     private List<UserEntity> implementers;
 
-
-
 }
