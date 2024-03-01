@@ -40,6 +40,7 @@ public class ProjectController {
         return new ResponseEntity<>("updated", HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')")
     @GetMapping("/projects")
     public ResponseEntity<PaginatedResponse<ProjectResponse>> findAllProjects(
             @RequestParam(name = "pageNo", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
@@ -52,6 +53,7 @@ public class ProjectController {
         return new ResponseEntity<>(projectResponse, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')")
     @GetMapping("/projects/{id}")
     public ResponseEntity<ProjectResponse> findProjectById(@PathVariable Long id) {
         var project = projectService.findProjectById(id);

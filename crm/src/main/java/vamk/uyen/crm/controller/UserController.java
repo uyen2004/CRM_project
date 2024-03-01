@@ -3,6 +3,7 @@ package vamk.uyen.crm.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import vamk.uyen.crm.dto.request.UserRequest;
 import vamk.uyen.crm.dto.response.PaginatedResponse;
@@ -21,6 +22,7 @@ public class UserController {
 
     private final UserService userService;
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')")
     @GetMapping()
     public ResponseEntity<PaginatedResponse<UserResponse>> findAllUser(
             @RequestParam(value = "pageNo", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
@@ -40,12 +42,14 @@ public class UserController {
         return new ResponseEntity<>(userDto, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/role/{roleId}")
     public ResponseEntity<String> addUser(@RequestBody UserRequest userRequest, @PathVariable Long roleId){
         userService.addUser(userRequest, roleId);
         return new ResponseEntity<>("Successfully added new user ", HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PatchMapping("/{id}")
     public ResponseEntity<String> updateUser(@PathVariable Long id, @Valid @RequestBody UserRequest userDto) {
         userService.updateUser(id, userDto);
@@ -53,6 +57,7 @@ public class UserController {
         return new ResponseEntity<>("updated", HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteUserById(@PathVariable Long id) {
         userService.deleteUserById(id);

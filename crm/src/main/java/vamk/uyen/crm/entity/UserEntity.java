@@ -28,6 +28,7 @@ public class UserEntity {
     @Column(nullable = false)
     private String phoneNum;
 
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),

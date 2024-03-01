@@ -3,6 +3,7 @@ package vamk.uyen.crm.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import vamk.uyen.crm.dto.request.TaskRequest;
 import vamk.uyen.crm.dto.response.PaginatedResponse;
@@ -20,6 +21,7 @@ import javax.validation.Valid;
 public class TaskController {
     private final TaskService taskService;
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')")
     @GetMapping("/tasks")
     public ResponseEntity<PaginatedResponse<TaskResponse>> findAllTasks(
             @RequestParam(name = "pageNo", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
@@ -32,6 +34,7 @@ public class TaskController {
         return new ResponseEntity<>(taskResponse, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')")
     @GetMapping("/tasks/{id}")
     public ResponseEntity<TaskResponse> findTaskById(@PathVariable Long id) {
         var task = taskService.findTaskById(id);
@@ -39,13 +42,14 @@ public class TaskController {
         return new ResponseEntity<>(task, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')")
     @PostMapping("/projects/{projectId}/users/{userId}/tasks")
     public ResponseEntity<String> addTask(@PathVariable Long projectId, @PathVariable Long userId, @Valid @RequestBody TaskRequest taskDto) {
         taskService.addTask(projectId, taskDto, userId);
         return new ResponseEntity<>("Successfully added task for user " + userId + " in project " + projectId, HttpStatus.CREATED);
     }
 
-
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')")
     @PutMapping("/tasks/{taskId}/users/{userId}")
     public ResponseEntity<String> setImplemeter(@PathVariable Long taskId, @PathVariable Long userId) {
         taskService.setImplementer(taskId, userId);
@@ -53,6 +57,7 @@ public class TaskController {
         return new ResponseEntity<>("implementer added", HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')")
     @PutMapping("/tasks/{id}")
     public ResponseEntity<String> updateTask(@PathVariable Long id, @Valid @RequestBody TaskRequest taskDto) {
         taskService.updateTask(id, taskDto);
@@ -60,6 +65,7 @@ public class TaskController {
         return new ResponseEntity<>("Updated", HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')")
     @DeleteMapping("/tasks/{id}")
     public ResponseEntity<String> deleteTask(@PathVariable Long id) {
         taskService.deleteTask(id);

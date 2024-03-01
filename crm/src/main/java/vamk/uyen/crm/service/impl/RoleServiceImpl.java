@@ -26,6 +26,7 @@ public class RoleServiceImpl implements RoleService {
     private static final Logger logger = LogManager.getLogger(RoleServiceImpl.class);
 
     public void addRole(RoleRequest roleDto) {
+
         roleRepository.save(Converter.toModel(roleDto, Role.class));
     }
 

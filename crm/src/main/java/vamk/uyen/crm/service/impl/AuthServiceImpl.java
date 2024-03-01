@@ -18,11 +18,11 @@ import vamk.uyen.crm.exception.ErrorCodeException;
 import vamk.uyen.crm.repository.RoleRepository;
 import vamk.uyen.crm.repository.UserRepository;
 import vamk.uyen.crm.service.AuthService;
-
 import java.util.HashSet;
 import java.util.Set;
+import org.apache.logging.log4j.Logger;
 
-import static com.mysql.cj.conf.PropertyKey.logger;
+
 
 @Service
 @RequiredArgsConstructor
@@ -41,7 +41,6 @@ public class AuthServiceImpl implements AuthService {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String token = jwtTokenProvider.generateToken(authentication);
-
         return token;
     }
 

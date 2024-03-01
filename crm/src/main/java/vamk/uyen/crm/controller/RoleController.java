@@ -22,6 +22,7 @@ public class RoleController {
 
     private final RoleService roleService;
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/roles")
     public ResponseEntity<List<RoleResponse>> getAllRoles() {
         var roleList = roleService.getAllRoles();
@@ -45,7 +46,7 @@ public class RoleController {
         return new ResponseEntity<>("successful", HttpStatus.OK);
     }
 
-
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/roles/{id}")
     public ResponseEntity<String> deleteRole(@PathVariable Long id) {
         roleService.deleteRole(id);
