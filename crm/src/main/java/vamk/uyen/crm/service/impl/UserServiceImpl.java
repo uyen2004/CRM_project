@@ -53,9 +53,6 @@ public class UserServiceImpl implements UserService {
         });
 
         var addedUser = Converter.toModel(userRequest, UserEntity.class);
-        logger.info(addedUser.getEmail());
-        logger.info(addedUser.getUsername());
-        logger.info(userRequest.getEmail());
         Set<Role> roles = new HashSet<>();
         roles.add(existingRole);
         addedUser.setRoles(roles);

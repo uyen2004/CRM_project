@@ -11,10 +11,19 @@ import org.springframework.stereotype.Service;
 import vamk.uyen.crm.Security.JwtTokenProvider;
 import vamk.uyen.crm.dto.request.LoginDto;
 import vamk.uyen.crm.dto.request.RegisterDto;
+import vamk.uyen.crm.entity.Role;
 import vamk.uyen.crm.entity.UserEntity;
 import vamk.uyen.crm.exception.ApiException;
+import vamk.uyen.crm.exception.ErrorCodeException;
+import vamk.uyen.crm.repository.RoleRepository;
 import vamk.uyen.crm.repository.UserRepository;
 import vamk.uyen.crm.service.AuthService;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import static com.mysql.cj.conf.PropertyKey.logger;
+
 @Service
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
@@ -23,6 +32,7 @@ public class AuthServiceImpl implements AuthService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
+    private final RoleRepository roleRepository;
     @Override
     public String login(LoginDto loginDto) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
@@ -36,10 +46,15 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public String register(RegisterDto registerDto) {
+    public String register(RegisterDto registerDto, Long roleId) {
         if (userRepository.existsByEmail(registerDto.getEmail())){
             throw new IllegalArgumentException("Username is already exists!");
         }
+
+        var existingRole = roleRepository.findById(roleId).orElseThrow(() -> {
+//            logger.error("Could not find role with id " + roleId);
+            throw new ApiException(ErrorCodeException.NOT_FOUND, String.valueOf(roleId));
+        });
 
         UserEntity newUser = new UserEntity();
         newUser.setUsername(registerDto.getUsername());
@@ -47,6 +62,9 @@ public class AuthServiceImpl implements AuthService {
         newUser.setPassword(passwordEncoder.encode(registerDto.getPassword()));
         newUser.setPhoneNum(registerDto.getPhoneNum());
 
+        Set<Role> roles = new HashSet<>();
+        roles.add(existingRole);
+        newUser.setRoles(roles);
         userRepository.save(newUser);
 
         return "User registered successfully!";

@@ -99,8 +99,6 @@ public class TaskServiceImpl implements TaskService {
 
     }
 
-
-
     @Override
     public void setImplementer(Long taskId, Long userId) {
         var existingTask = taskRepository.findById(taskId).orElseThrow(()
