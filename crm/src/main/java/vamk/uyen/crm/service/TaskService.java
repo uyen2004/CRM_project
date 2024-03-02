@@ -20,4 +20,6 @@ public interface TaskService {
     void updateTask(Long id, TaskRequest taskDto);
 
     void deleteTask(Long id);
+
+    List<TaskResponse> findByimplementerId(Long implementerId);
 }

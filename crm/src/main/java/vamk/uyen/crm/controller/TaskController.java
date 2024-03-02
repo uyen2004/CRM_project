@@ -21,7 +21,6 @@ import javax.validation.Valid;
 public class TaskController {
     private final TaskService taskService;
 
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')")
     @GetMapping("/tasks")
     public ResponseEntity<PaginatedResponse<TaskResponse>> findAllTasks(
             @RequestParam(name = "pageNo", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER, required = false) int pageNo,

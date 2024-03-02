@@ -3,6 +3,7 @@ package vamk.uyen.crm.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -12,17 +13,19 @@ import vamk.uyen.crm.converter.Converter;
 import vamk.uyen.crm.dto.request.TaskRequest;
 import vamk.uyen.crm.dto.response.PaginatedResponse;
 import vamk.uyen.crm.dto.response.TaskResponse;
-import vamk.uyen.crm.entity.Task;
-import vamk.uyen.crm.entity.TaskStatus;
-import vamk.uyen.crm.entity.UserEntity;
+import vamk.uyen.crm.entity.*;
 import vamk.uyen.crm.exception.ApiException;
 import vamk.uyen.crm.exception.ErrorCodeException;
 import vamk.uyen.crm.repository.ProjectRepository;
 import vamk.uyen.crm.repository.TaskRepository;
 import vamk.uyen.crm.repository.UserRepository;
 import vamk.uyen.crm.service.TaskService;
+import vamk.uyen.crm.util.AuthenticationUtil;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -32,6 +35,8 @@ public class TaskServiceImpl implements TaskService {
     private final ProjectRepository projectRepository;
     private final UserRepository userRepository;
     private static final Logger logger = LogManager.getLogger(TaskServiceImpl.class);
+    @Autowired
+    private AuthenticationUtil authenticationUtil;
 
     @Override
     public PaginatedResponse<TaskResponse> findAllTasks(int pageNo, int pageSize, String sortBy, String sortDir) {
@@ -56,6 +61,27 @@ public class TaskServiceImpl implements TaskService {
         taskResponse.setTotalElements(taskPage.getTotalElements());
         taskResponse.setTotalPages(taskPage.getTotalPages());
         taskResponse.setLast(taskPage.isLast());
+
+        var user =  authenticationUtil.getAccount();
+        Long id = user.getId();
+        Set<Role> roles = user.getRoles();
+        logger.info(id);
+        String roleName = roles.stream()
+                .map(Role::getName)
+                .filter(name -> name.equals("ROLE_MANAGER") || name.equals("ROLE_STAFF") || name.equals("ROLE_ADMIN"))
+                .findFirst()
+                .orElse("Role not found");
+
+        if (roleName.equals("ROLE_MANAGER")) {
+            List<TaskResponse> managerTaskResponses = new ArrayList<>();
+            for (Project project : user.getProjects()) {
+                List<Task> tasksForProject = taskRepository.findByProjectId(project.getId());
+                managerTaskResponses.addAll(Converter.toList(tasksForProject, TaskResponse.class));
+            }
+            taskResponse.setContent(managerTaskResponses);
+        }else if(roleName.equals("ROLE_STAFF")){
+            taskResponse.setContent(Converter.toList(findByimplementerId(user.getId()), TaskResponse.class));
+        }
 
         return taskResponse;
     }
@@ -166,6 +192,15 @@ public class TaskServiceImpl implements TaskService {
         taskRepository.saveAndFlush(task);
 
         taskRepository.delete(task);
+    }
+
+    public List<TaskResponse> findByimplementerId(Long implementerId){
+        List<Task> taskList = taskRepository.findAll();
+        List<Task> tasksForImplementer = taskList.stream()
+                .filter(task -> task.getImplementers().stream()
+                        .anyMatch(user -> user.getId().equals(implementerId)))
+                .collect(Collectors.toList());
+        return Converter.toList(tasksForImplementer, TaskResponse.class);
     }
 
 }
