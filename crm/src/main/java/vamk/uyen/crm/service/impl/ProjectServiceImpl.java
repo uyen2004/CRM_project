@@ -55,14 +55,18 @@ public class ProjectServiceImpl implements ProjectService {
 
 
     @Override
-    public void updateProject(Long id, ProjectRequest projectDto) {
+    public void updateProject(Long id, ProjectRequest projectDto, Long originatorId) {
         var project = projectRepository.findById(id).orElseThrow(() -> {
             logger.error("Could not find project id " + id);
             throw new ApiException(ErrorCodeException.NOT_FOUND, String.valueOf(id));
         });
 
         var updatedProject = Converter.toModel(projectDto, Project.class);
-
+        var existingOriginator = userRepository.findById(originatorId)
+                .orElseThrow(() -> {
+                    logger.error("Could not find user with id " + originatorId);
+                    throw new ApiException(ErrorCodeException.NOT_FOUND, String.valueOf(originatorId));
+                });
         // Update project properties if they are not null in the request
         if (projectDto.getName() != null) {
             project.setName(updatedProject.getName());
@@ -73,7 +77,8 @@ public class ProjectServiceImpl implements ProjectService {
         if (projectDto.getEndDate() != null) {
             project.setEndDate(updatedProject.getEndDate());
         }
-
+        project.setOriginator(existingOriginator);
+        existingOriginator.getProjects().add(project);
         projectRepository.save(project);
     }
 
@@ -170,8 +175,6 @@ public class ProjectServiceImpl implements ProjectService {
 
         return projectResponses;
     }
-
-
 
 }
 

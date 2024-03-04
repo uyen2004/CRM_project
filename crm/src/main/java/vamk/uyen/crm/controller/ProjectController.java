@@ -33,9 +33,10 @@ public class ProjectController {
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')")
-    @PutMapping("/projects/{id}")
-    public ResponseEntity<String> updateProject(@PathVariable Long id, @Valid @RequestBody ProjectRequest projectDto) {
-        projectService.updateProject(id, projectDto);
+    @PutMapping("/projects/{id}/originator/{originatorId}")
+    public ResponseEntity<String> updateProject(@PathVariable Long id, @Valid @RequestBody ProjectRequest projectDto,
+                                                @PathVariable Long originatorId) {
+        projectService.updateProject(id, projectDto, originatorId);
 
         return new ResponseEntity<>("updated", HttpStatus.OK);
     }

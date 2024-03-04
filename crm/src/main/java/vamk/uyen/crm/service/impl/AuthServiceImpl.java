@@ -20,8 +20,6 @@ import vamk.uyen.crm.repository.UserRepository;
 import vamk.uyen.crm.service.AuthService;
 import java.util.HashSet;
 import java.util.Set;
-import org.apache.logging.log4j.Logger;
-
 
 
 @Service
@@ -33,11 +31,11 @@ public class AuthServiceImpl implements AuthService {
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
     private final RoleRepository roleRepository;
+
     @Override
     public String login(LoginDto loginDto) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 loginDto.getEmail(), loginDto.getPassword()));
-
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String token = jwtTokenProvider.generateToken(authentication);

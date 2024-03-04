@@ -98,11 +98,12 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public void addTask(Long projectId, TaskRequest taskDto, Long userId) {
+    public void addTask(Long projectId, Long userId,TaskRequest taskDto) {
         var existingProject = projectRepository.findById(projectId).orElseThrow(() -> {
             logger.error("Could not find project with id " + projectId);
             throw new ApiException(ErrorCodeException.NOT_FOUND, String.valueOf(projectId));
         });
+        logger.info(existingProject.getName());
 
         var existingUser = userRepository.findById(userId).orElseThrow(() -> {
             logger.error("Could not find user with id " + userId);
@@ -147,10 +148,14 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public void updateTask(Long id, TaskRequest taskDto) {
+    public void updateTask(Long id, TaskRequest taskDto, Long implementerId) {
         var existingTask = taskRepository.findById(id).orElseThrow(() -> {
             logger.error("Could not find task id " + id);
             throw new ApiException(ErrorCodeException.NOT_FOUND, String.valueOf(id));
+        });
+        var existingUser = userRepository.findById(implementerId).orElseThrow(() -> {
+            logger.error("Could not find user with id " + implementerId);
+            throw new ApiException(ErrorCodeException.NOT_FOUND, String.valueOf(implementerId));
         });
 
         var updatedTask = Converter.toModel(taskDto, Task.class);
@@ -167,7 +172,15 @@ public class TaskServiceImpl implements TaskService {
         if (taskDto.getStatus() != null) {
             existingTask.setStatus(updatedTask.getStatus());
         }
+        for (UserEntity implementer : existingTask.getImplementers()) {
+            implementer.getTasks().remove(existingTask);
+            userRepository.save(implementer);
+        }
 
+        existingTask.getImplementers().clear();
+
+        existingTask.getImplementers().add(existingUser);
+        existingUser.getTasks().add(existingTask);
         taskRepository.save(existingTask);
     }
 
@@ -188,7 +201,6 @@ public class TaskServiceImpl implements TaskService {
         }
 
         // Clear the implementers and save the task to ensure changes are flushed
-        task.getImplementers().clear();
         taskRepository.saveAndFlush(task);
 
         taskRepository.delete(task);

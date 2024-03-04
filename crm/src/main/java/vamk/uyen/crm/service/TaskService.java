@@ -13,11 +13,11 @@ public interface TaskService {
 
     TaskResponse findTaskById(Long id);
 
-    void addTask(Long projectId, TaskRequest taskDto, Long userId);
+    void addTask(Long projectId, Long userId, TaskRequest taskDto);
 
     void setImplementer(Long taskId, Long userId);
 
-    void updateTask(Long id, TaskRequest taskDto);
+    void updateTask(Long id, TaskRequest taskDto, Long implemnterId);
 
     void deleteTask(Long id);
 

@@ -44,22 +44,22 @@ public class TaskController {
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')")
     @PostMapping("/projects/{projectId}/users/{userId}/tasks")
     public ResponseEntity<String> addTask(@PathVariable Long projectId, @PathVariable Long userId, @Valid @RequestBody TaskRequest taskDto) {
-        taskService.addTask(projectId, taskDto, userId);
+        taskService.addTask(projectId, userId, taskDto);
         return new ResponseEntity<>("Successfully added task for user " + userId + " in project " + projectId, HttpStatus.CREATED);
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')")
-    @PutMapping("/tasks/{taskId}/users/{userId}")
-    public ResponseEntity<String> setImplemeter(@PathVariable Long taskId, @PathVariable Long userId) {
-        taskService.setImplementer(taskId, userId);
+//    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')")
+//    @PutMapping("/tasks/{taskId}/users/{userId}")
+//    public ResponseEntity<String> setImplemeter(@PathVariable Long taskId, @PathVariable Long userId) {
+//        taskService.setImplementer(taskId, userId);
+//
+//        return new ResponseEntity<>("implementer added", HttpStatus.OK);
+//    }
 
-        return new ResponseEntity<>("implementer added", HttpStatus.OK);
-    }
-
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')")
-    @PutMapping("/tasks/{id}")
-    public ResponseEntity<String> updateTask(@PathVariable Long id, @Valid @RequestBody TaskRequest taskDto) {
-        taskService.updateTask(id, taskDto);
+    @PutMapping("/tasks/{id}/implementer/{implementerId}")
+    public ResponseEntity<String> updateTask(@PathVariable Long id, @Valid @RequestBody TaskRequest taskDto, @PathVariable Long implementerId) {
+        taskService.updateTask(id, taskDto, implementerId);
 
         return new ResponseEntity<>("Updated", HttpStatus.OK);
     }
