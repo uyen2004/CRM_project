@@ -1,5 +1,6 @@
 package vamk.uyen.crm.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,7 @@ public class UserController {
 
     private final UserService userService;
 
+    @Operation(summary = "get all users")
     @GetMapping()
     public ResponseEntity<PaginatedResponse<UserResponse>> findAllUser(
             @RequestParam(value = "pageNo", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
@@ -31,6 +33,7 @@ public class UserController {
         return new ResponseEntity<>(userResponse, HttpStatus.OK);
     }
 
+    @Operation(summary = "get user by id")
     @GetMapping("/{id}")
     public ResponseEntity<UserResponse> findUserById(@PathVariable Long id) {
         var userDto = userService.findUserById(id);
@@ -39,6 +42,7 @@ public class UserController {
     }
 
 
+    @Operation(summary = "update user")
     @PutMapping("/{id}")
     public ResponseEntity<String> updateUser(@PathVariable Long id, @Valid @RequestBody UserRequest userDto) {
         userService.updateUser(id, userDto);
@@ -46,6 +50,7 @@ public class UserController {
         return new ResponseEntity<>("updated", HttpStatus.OK);
     }
 
+    @Operation(summary = "delete user")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteUserById(@PathVariable Long id) {
         userService.deleteUserById(id);

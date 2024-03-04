@@ -45,11 +45,11 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public void setRole(Long userId, Role role) {
-        var settedrole = roleRepository.findByName(role.getName()).orElseThrow(()
+    public void setRole(Long userId, Long roleId) {
+        var settedrole = roleRepository.findById(roleId).orElseThrow(()
                 -> {
-            logger.error("Could not found role name " + role.getName());
-            throw new ApiException(ErrorCodeException.NOT_FOUND, role.getName());
+            logger.error("Could not found role id " + roleId);
+            throw new ApiException(ErrorCodeException.NOT_FOUND, String.valueOf(roleId));
         });
 
         var user = userRepository.findById(userId).orElseThrow(()

@@ -1,6 +1,8 @@
 package vamk.uyen.crm.controller;
 
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.http.HttpStatus;
@@ -22,6 +24,7 @@ import java.util.List;
 public class ProjectController {
     private final ProjectService projectService;
 
+    @Operation(summary = "create project")
     @PostMapping("/projects")
     public ResponseEntity<String> addProject(@Valid @RequestBody ProjectRequest projectDto) {
         projectService.addProject(projectDto);
@@ -29,6 +32,7 @@ public class ProjectController {
         return new ResponseEntity<>("successfully", HttpStatus.CREATED);
     }
 
+    @Operation(summary = "update project")
     @PutMapping("/projects/{id}")
     public ResponseEntity<String> updateProject(@PathVariable Long id, @Valid @RequestBody ProjectRequest projectDto) {
         projectService.updateProject(id, projectDto);
@@ -36,6 +40,7 @@ public class ProjectController {
         return new ResponseEntity<>("updated", HttpStatus.OK);
     }
 
+    @Operation(summary = "get all projects")
     @GetMapping("/projects")
     public ResponseEntity<PaginatedResponse<ProjectResponse>> findAllProjects(
             @RequestParam(name = "pageNo", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
@@ -48,6 +53,7 @@ public class ProjectController {
         return new ResponseEntity<>(projectResponse, HttpStatus.OK);
     }
 
+    @Operation(summary = "get project by id")
     @GetMapping("/projects/{id}")
     public ResponseEntity<ProjectResponse> findProjectById(@PathVariable Long id) {
         var project = projectService.findProjectById(id);
@@ -55,6 +61,10 @@ public class ProjectController {
         return new ResponseEntity<>(project, HttpStatus.OK);
     }
 
+    @SecurityRequirement(
+            name = "Bearer Authentication"
+    )
+    @Operation(summary = "delete project")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/projects/{id}")
     public ResponseEntity<String> deleteProject(@PathVariable Long id) {

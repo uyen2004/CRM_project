@@ -1,6 +1,7 @@
 package vamk.uyen.crm.service;
 
 import org.springframework.stereotype.Service;
+import vamk.uyen.crm.dto.request.SearchRequest;
 import vamk.uyen.crm.dto.request.TaskRequest;
 import vamk.uyen.crm.dto.response.PaginatedResponse;
 import vamk.uyen.crm.dto.response.TaskResponse;
@@ -23,4 +24,5 @@ public interface TaskService {
     void deleteTask(Long id);
     PaginatedResponse<TaskResponse> searchTasks(int pageNo, int pageSize, String sortBy, String sortDir,
                                                 TaskSearchRequest searchRequest);
+
 }

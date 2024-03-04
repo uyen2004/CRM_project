@@ -1,5 +1,7 @@
 package vamk.uyen.crm.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +22,8 @@ public class RoleController {
 
     private final RoleService roleService;
 
+    @Operation(summary = "get all roles")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')")
     @GetMapping("/roles")
     public ResponseEntity<List<RoleResponse>> getAllRoles() {
         var roleList = roleService.getAllRoles();
@@ -27,6 +31,10 @@ public class RoleController {
         return new ResponseEntity<>(roleList, HttpStatus.OK);
     }
 
+    @SecurityRequirement(
+            name = "Bearer Authentication"
+    )
+    @Operation(summary = "create role")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/roles")
     public ResponseEntity<String> addRole(@Valid @RequestBody RoleRequest roleDto) {
@@ -35,15 +43,20 @@ public class RoleController {
         return new ResponseEntity<>("successful", HttpStatus.CREATED);
     }
 
+    @SecurityRequirement(
+            name = "Bearer Authentication"
+    )
+    @Operation(summary = "set role")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/users/{userId}/roles")
-    public ResponseEntity<String> setRole(@PathVariable Long userId, @RequestBody Role role){
-        roleService.setRole(userId, role);
+    public ResponseEntity<String> setRole(@PathVariable Long userId, @RequestBody Long roleId){
+        roleService.setRole(userId, roleId);
 
         return new ResponseEntity<>("successful", HttpStatus.OK);
     }
 
 
+    @Operation(summary = "delete role")
     @DeleteMapping("/roles/{id}")
     public ResponseEntity<String> deleteRole(@PathVariable Long id) {
         roleService.deleteRole(id);

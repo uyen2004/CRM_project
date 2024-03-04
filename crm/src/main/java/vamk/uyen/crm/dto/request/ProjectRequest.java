@@ -20,5 +20,4 @@ public class ProjectRequest {
     @NotEmpty
     private String endDate;
 
-    private List<TaskRequest> tasks;
 }

@@ -13,5 +13,5 @@ public interface RoleService {
 
     void deleteRole(Long id);
 
-    void setRole(Long userId, Role roleName);
+    void setRole(Long userId, Long roleId);
 }
