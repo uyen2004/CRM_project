@@ -18,7 +18,5 @@ public class TaskRequest {
     private String startDate;
     @NotEmpty
     private String endDate;
-
-    private TaskStatus status;
 }
 

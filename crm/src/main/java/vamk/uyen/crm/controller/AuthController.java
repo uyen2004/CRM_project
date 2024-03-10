@@ -1,5 +1,6 @@
 package vamk.uyen.crm.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,7 @@ public class AuthController {
 
     private final AuthService authService;
 
+    @Operation(summary = "login")
     @PostMapping("/login")
     public ResponseEntity<JwtAuthResponse> login(@RequestBody LoginDto loginDto){
         String token = authService.login(loginDto);
@@ -30,6 +32,7 @@ public class AuthController {
         return new ResponseEntity<>(jwtAuthResponse, HttpStatus.OK);
     }
 
+    @Operation(summary = "register")
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody RegisterDto registerDto){
         String response = authService.register(registerDto);

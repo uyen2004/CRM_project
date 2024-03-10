@@ -24,6 +24,4 @@ public class RegisterDto {
     @NotEmpty
     private String phoneNum;
 
-    @NotEmpty
-    private Set<Role> roles;
 }

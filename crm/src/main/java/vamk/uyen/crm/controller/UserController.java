@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 import vamk.uyen.crm.crmapi.UserTest;
 import vamk.uyen.crm.dto.request.UserRequest;
 import vamk.uyen.crm.dto.response.PaginatedResponse;
@@ -41,12 +40,6 @@ public class UserController {
         return new ResponseEntity<>(userDto, HttpStatus.OK);
     }
 
-    @GetMapping("/userss")
-    public ResponseEntity<Flux<UserTest>> getAllUsers() {
-
-        return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
-    }
-
 
     @PutMapping("/users/{id}")
     public ResponseEntity<String> updateUser(@PathVariable Long id, @Valid @RequestBody UserRequest userDto) {
@@ -60,5 +53,10 @@ public class UserController {
         userService.deleteUserById(id);
 
         return new ResponseEntity<>("deleted", HttpStatus.OK);
+    }
+
+    @GetMapping("/userss")
+    public ResponseEntity<Flux<UserTest>> getAllUsers() {
+        return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
     }
 }
