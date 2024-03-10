@@ -8,7 +8,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 import vamk.uyen.crm.converter.Converter;
+import vamk.uyen.crm.crmapi.CrmApi;
+import vamk.uyen.crm.crmapi.UserTest;
 import vamk.uyen.crm.dto.request.UserRequest;
 import vamk.uyen.crm.dto.response.PaginatedResponse;
 import vamk.uyen.crm.dto.response.UserResponse;
@@ -26,6 +30,8 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private static final Logger logger = LogManager.getLogger(UserServiceImpl.class);
+
+    private final CrmApi crmApi;
 
     @Override
     public UserResponse findUserById(Long id) {
@@ -96,4 +102,10 @@ public class UserServiceImpl implements UserService {
 
         userRepository.delete(userEntity);
     }
+
+    @Override
+    public Flux<UserTest> getAllUsers() {
+        return crmApi.getAllUsers();
+    }
+
 }

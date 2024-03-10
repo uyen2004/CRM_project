@@ -4,6 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+import vamk.uyen.crm.crmapi.UserTest;
 import vamk.uyen.crm.dto.request.UserRequest;
 import vamk.uyen.crm.dto.response.PaginatedResponse;
 import vamk.uyen.crm.dto.response.UserResponse;
@@ -13,13 +16,13 @@ import vamk.uyen.crm.util.AppConstants;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/api/v1/users")
+@RequestMapping("/api/v1")
 @RequiredArgsConstructor
 public class UserController {
 
     private final UserService userService;
 
-    @GetMapping()
+    @GetMapping("/users")
     public ResponseEntity<PaginatedResponse<UserResponse>> findAllUser(
             @RequestParam(value = "pageNo", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
             @RequestParam(value = "pageSize", defaultValue = AppConstants.DEFAULT_PAGE_SIZE, required = false) int pageSize,
@@ -31,22 +34,28 @@ public class UserController {
         return new ResponseEntity<>(userResponse, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/users/{id}")
     public ResponseEntity<UserResponse> findUserById(@PathVariable Long id) {
         var userDto = userService.findUserById(id);
 
         return new ResponseEntity<>(userDto, HttpStatus.OK);
     }
 
+    @GetMapping("/userss")
+    public ResponseEntity<Flux<UserTest>> getAllUsers() {
 
-    @PutMapping("/{id}")
+        return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
+    }
+
+
+    @PutMapping("/users/{id}")
     public ResponseEntity<String> updateUser(@PathVariable Long id, @Valid @RequestBody UserRequest userDto) {
         userService.updateUser(id, userDto);
 
         return new ResponseEntity<>("updated", HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/users/{id}")
     public ResponseEntity<String> deleteUserById(@PathVariable Long id) {
         userService.deleteUserById(id);
 
