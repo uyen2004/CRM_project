@@ -69,8 +69,8 @@ public class StatisticsController{
         return total == 0 ? 0 : ( count / total) * 100;
     }
 
-    @GetMapping("/jobStatistic")
-    public Map<String, Integer> jobStatistic(@RequestParam Long projectId){
+    @GetMapping("/jobStatistic/{projectId}")
+    public Map<String, Integer> jobStatistic(@PathVariable Long projectId){
         List<Task> tasks = taskRepository.findByProjectId(projectId);
         int totalTasks = tasks.size();
         int completedTasks = 0;

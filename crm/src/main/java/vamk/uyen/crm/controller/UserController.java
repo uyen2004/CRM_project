@@ -10,6 +10,7 @@ import vamk.uyen.crm.dto.response.PaginatedResponse;
 import vamk.uyen.crm.dto.response.UserResponse;
 import vamk.uyen.crm.service.UserService;
 import vamk.uyen.crm.util.AppConstants;
+import vamk.uyen.crm.util.AuthenticationUtil;
 
 import javax.validation.Valid;
 
@@ -21,6 +22,8 @@ import javax.validation.Valid;
 public class UserController {
 
     private final UserService userService;
+    private final AuthenticationUtil authenticationUtil;
+
 
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')")
     @GetMapping()
@@ -40,6 +43,11 @@ public class UserController {
         var userDto = userService.findUserById(id);
 
         return new ResponseEntity<>(userDto, HttpStatus.OK);
+    }
+    @GetMapping("/profile")
+    public UserResponse getProfile() {
+        String userEmail = authenticationUtil.getAccount().getEmail();
+        return userService.getProfile(userEmail);
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")

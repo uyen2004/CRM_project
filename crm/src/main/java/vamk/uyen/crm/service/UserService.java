@@ -19,4 +19,5 @@ public interface UserService {
     void deleteUserById(Long id);
 
     UserEntity getUser(String email);
+    UserResponse getProfile(String email);
 }

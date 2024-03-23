@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import vamk.uyen.crm.converter.Converter;
 import vamk.uyen.crm.dto.request.TaskRequest;
+import vamk.uyen.crm.dto.request.UserRequest;
 import vamk.uyen.crm.dto.response.PaginatedResponse;
 import vamk.uyen.crm.dto.response.TaskResponse;
 import vamk.uyen.crm.entity.*;
@@ -49,6 +50,24 @@ public class TaskServiceImpl implements TaskService {
         Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
 
         Page<Task> taskPage = taskRepository.findAll(pageable);
+
+        List<TaskResponse> taskResponses = taskPage.getContent().stream()
+                .map(task -> {
+                    TaskResponse taskResponse = new TaskResponse();
+                    taskResponse.setId(task.getId());
+                    taskResponse.setName(task.getName());
+                    taskResponse.setStartDate(task.getStartDate());
+                    taskResponse.setEndDate(task.getEndDate());
+                    taskResponse.setStatus(task.getStatus());
+                    taskResponse.setProjectName(projectName(task.getProject().getId()));
+                    List<UserRequest> implementers = task.getImplementers().stream()
+                            .map(this::convertToUserRequest)
+                            .collect(Collectors.toList());
+                    taskResponse.setImplementers(implementers);
+                    return taskResponse;
+                })
+                .collect(Collectors.toList());
+
 
         // get content from page object
         List<Task> taskList = taskPage.getContent();
@@ -213,6 +232,20 @@ public class TaskServiceImpl implements TaskService {
                         .anyMatch(user -> user.getId().equals(implementerId)))
                 .collect(Collectors.toList());
         return Converter.toList(tasksForImplementer, TaskResponse.class);
+    }
+
+    public String projectName(Long projectId){
+        var existingProject = projectRepository.findById(projectId).orElseThrow(() -> {
+            logger.error("Could not find project with id " + projectId);
+            throw new ApiException(ErrorCodeException.NOT_FOUND, String.valueOf(projectId));
+        });
+        String projectname = existingProject.getName();
+        return projectname;
+    }
+
+    public UserRequest convertToUserRequest(UserEntity userEntity) {
+        UserRequest userRequest = Converter.toModel(userEntity, UserRequest.class);
+        return userRequest;
     }
 
 }

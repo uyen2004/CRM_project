@@ -1,8 +1,10 @@
 package vamk.uyen.crm.service.impl;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -19,6 +21,7 @@ import vamk.uyen.crm.exception.ErrorCodeException;
 import vamk.uyen.crm.repository.RoleRepository;
 import vamk.uyen.crm.repository.UserRepository;
 import vamk.uyen.crm.service.UserService;
+import vamk.uyen.crm.util.AuthenticationUtil;
 
 import java.util.*;
 
@@ -28,6 +31,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+
     private static final Logger logger = LogManager.getLogger(UserServiceImpl.class);
 
     @Override
@@ -103,7 +107,9 @@ public class UserServiceImpl implements UserService {
             if(updatedUser.getPhoneNum() != null) {
                 userEntity.setPhoneNum(updatedUser.getPhoneNum());
             }
-
+            if(updatedUser.getEmail() != null){
+                userEntity.setEmail(updatedUser.getEmail());
+            }
             if(updatedUser.getRoles() != null) {
                 userEntity.setRoles(updatedUser.getRoles());
             }
@@ -131,6 +137,15 @@ public class UserServiceImpl implements UserService {
     public UserEntity getUser(String email) {
         Optional<UserEntity> userOptional = userRepository.findByEmail(email);
         return userOptional.orElse(null);
+    }
+
+
+    @Override
+    public UserResponse getProfile(String userEmail) {
+        UserEntity account = userRepository.findByEmail(userEmail)
+                .orElseThrow(() -> new EntityNotFoundException("User not found with email: " + userEmail));
+
+        return Converter.toModel(account, UserResponse.class);
     }
 
 }

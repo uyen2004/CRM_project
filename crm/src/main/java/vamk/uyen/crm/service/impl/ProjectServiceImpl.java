@@ -77,8 +77,10 @@ public class ProjectServiceImpl implements ProjectService {
         if (projectDto.getEndDate() != null) {
             project.setEndDate(updatedProject.getEndDate());
         }
-        project.setOriginator(existingOriginator);
-        existingOriginator.getProjects().add(project);
+        if(projectDto.getOriginator() != null){
+            project.setOriginator(existingOriginator);
+            existingOriginator.getProjects().add(project);
+        }
         projectRepository.save(project);
     }
 

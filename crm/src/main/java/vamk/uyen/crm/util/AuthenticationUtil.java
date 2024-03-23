@@ -5,15 +5,16 @@ import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.stereotype.Component;
 import vamk.uyen.crm.entity.UserEntity;
 import vamk.uyen.crm.service.UserService;
-
 import static org.springframework.security.core.context.SecurityContextHolder.getContext;
 
 @Component
 public class AuthenticationUtil {
     @Autowired
-    private UserService userService;
+    private final UserService userService;
 
-    // Get current user account from SecurityContextHolder
+    public AuthenticationUtil(UserService userService) {
+        this.userService = userService;
+    }
     public UserEntity getAccount() {
         var authentication = getContext().getAuthentication();
         return authentication instanceof AnonymousAuthenticationToken ? null

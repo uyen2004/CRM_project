@@ -1,6 +1,7 @@
 package vamk.uyen.crm.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -8,10 +9,12 @@ import org.springframework.web.bind.annotation.*;
 import vamk.uyen.crm.dto.request.TaskRequest;
 import vamk.uyen.crm.dto.response.PaginatedResponse;
 import vamk.uyen.crm.dto.response.TaskResponse;
+import vamk.uyen.crm.entity.Task;
 import vamk.uyen.crm.service.TaskService;
 import vamk.uyen.crm.util.AppConstants;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1")

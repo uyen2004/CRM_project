@@ -22,4 +22,5 @@ public interface TaskService {
     void deleteTask(Long id);
 
     List<TaskResponse> findByimplementerId(Long implementerId);
+    String projectName(Long projectId);
 }

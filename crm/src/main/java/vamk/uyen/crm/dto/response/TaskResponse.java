@@ -24,5 +24,6 @@ public class TaskResponse {
     private List<UserRequest> implementers;
     @NotEmpty
     private TaskStatus status;
+    private String projectName;
 }
 
